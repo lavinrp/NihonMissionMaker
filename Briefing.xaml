@@ -1,0 +1,88 @@
+﻿<Page x:Class="Nihon_Mission_Maker.Briefing"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Nihon_Mission_Maker"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1000"
+      Title="Briefing">
+    
+    <!--Outer grid for entire page-->
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+       
+        <!--choose side-->
+        <!--build mini grid for side-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Choose Side for Briefing-->
+            <TextBlock Grid.Row="0" Grid.Column="0" Background="Gray" Foreground="black" FontSize="25" Width="70" HorizontalAlignment="Left" Margin="0, 5, 0, 0">Side</TextBlock><!--Margin="0,5,300,0"-->
+            <ComboBox Grid.Column="0" Grid.Row="1">
+                <ComboBoxItem x:Name="briefSideBlue">Blufor</ComboBoxItem>
+                <ComboBoxItem x:Name="briefSideInd">Indfor</ComboBoxItem>
+                <ComboBoxItem x:Name="briefSideRed">Opfor</ComboBoxItem>
+                <ComboBoxItem x:Name="briefSideCiv">Civ</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        
+        
+        <!--Inner grid with Briefing details-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!--credits-->
+            <TextBlock Grid.Row="1" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="84">Credits</TextBlock>
+            <TextBox x:Name="creditsTextBox" Grid.Row="2" Background="LightGray" Foreground="Black" AcceptsReturn="True"></TextBox>
+            <!--Administration-->
+            <TextBlock Grid.Row="4" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="165">Administration</TextBlock>
+            <TextBox x:Name="administrationTextBox" Grid.Row="5" Background="LightGray" Foreground="Black" AcceptsReturn="True"></TextBox>
+            <!--Mission-->
+            <TextBlock Grid.Row="7" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="91">Mission</TextBlock>
+            <TextBox x:Name="missionTextBox" Grid.Row="8" Background="LightGray" Foreground="Black" AcceptsReturn="True"></TextBox>
+            <!--Situation-->
+            <TextBlock Grid.Row="10" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="100">Situation</TextBlock>
+            <TextBox x:Name="situationTextBox" Grid.Row="11" Background="LightGray" Foreground="Black" AcceptsReturn="True"></TextBox>
+        </Grid>
+        
+        <!--Save button-->
+        <Button x:Name="briefingSaveButton" Grid.Row="2" Grid.Column="1" Background="Gray" Foreground="Black" FontSize="30" Margin="20" Click="briefingSaveButton_Click">
+            Save
+        </Button>
+    </Grid>
+</Page>
