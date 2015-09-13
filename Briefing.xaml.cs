@@ -74,7 +74,6 @@ namespace Nihon_Mission_Maker
             
         }
 
-
         //TODO: remove this
         /// <summary>
         /// Copies the briefing file into memory and inserts user given string in the correct place.
@@ -83,7 +82,7 @@ namespace Nihon_Mission_Maker
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns>returnList: list of every line in the produced briefing</returns>
-        private List<string> CreateBriefingArray(string filePath)
+       /* private List<string> CreateBriefingArray(string filePath)
         {
             //create list
             List<String> returnList = new List<string>();
@@ -160,8 +159,7 @@ namespace Nihon_Mission_Maker
 
 
             return returnList;
-        }
-
+        }*/
 
         /// <summary>
         /// Saves a factions briefing file to a string given a file path to the briefing
@@ -197,25 +195,134 @@ namespace Nihon_Mission_Maker
             }
         }        
         
+        /// <summary>
+        /// Writes given briefing to given briefing file
+        /// </summary>
+        /// <param name="factionBriefing">briefing to be saved</param>
+        /// <param name="factionBriefingFilePath">briefing path to save to</param>
+        private void SaveFactionBriefing(ref string factionBriefing, string factionBriefingFilePath)
+        {
+            //write to the faction file
+            try
+            {
+                System.IO.File.WriteAllText(factionBriefingFilePath, factionBriefing);
+            }
 
+            catch
+            {
+                MessageBox.Show("Error writing faction briefing file", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        /// <summary>
+        ///make changes to string for selected factions briefing and overwrite faction briefing file with content of string
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void briefingSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: If no bluInput skip blu briefing file stuffs
-            //TODO: allow user to change the file path
-            string bluBriefingPath;
-            bluBriefingPath = "C:\\Users\\R Lavin\\Documents\\Arma 3 - Other Profiles\\NihonNukite\\TempMissionStore\\Nih Mission Maker\\bwmf\\f\\briefing\\f_briefing_nato.sqf";
-            //newBluBriefingPath = "C:\\Users\\R Lavin\\Documents\\Arma 3 - Other Profiles\\NihonNukite\\TempMissionStore\\Nih Mission Maker\\bwmf\\f\\briefing\\f_briefing_nato.sqf";
 
-            /*
-            using (StreamWriter sw = new StreamWriter(bluBriefingPath))
+            //get selection
+            ComboBoxItem selection = (ComboBoxItem)(SideSelectionBox .SelectedValue);
+
+            //convert selection to string
+            string selectionString = (string)selection.Content;
+
+            switch (selectionString)
             {
-                
+                //make changes to string for selected factions briefing and overwrite faction briefing file with content of string
+                case "Blufor":
+                    ChangeCredits(ref bluBriefing);
+                    ChangeAdmin(ref bluBriefing);
+                    ChangeMission(ref bluBriefing);
+                    ChangeSituation(ref bluBriefing);
+                    ChangeEnemyForces(ref bluBriefing);
+                    SaveFactionBriefing(ref bluBriefing, bluBriefingFilePath);
+                    break;
+                case "Opfor":
+                    ChangeCredits(ref redBriefing);
+                    ChangeAdmin(ref redBriefing);
+                    ChangeMission(ref redBriefing);
+                    ChangeSituation(ref redBriefing);
+                    ChangeEnemyForces(ref redBriefing);
+                    SaveFactionBriefing(ref redBriefing, redBriefingFilePath);
+                    break;
+                case "Indfor":
+                    ChangeCredits(ref indBriefing);
+                    ChangeAdmin(ref indBriefing);
+                    ChangeMission(ref indBriefing);
+                    ChangeSituation(ref indBriefing);
+                    ChangeEnemyForces(ref indBriefing);
+                    SaveFactionBriefing(ref indBriefing, indBriefingFilePath);
+                    break;
+                case "Civ":
+                    ChangeCredits(ref civBriefing);
+                    ChangeAdmin(ref civBriefing);
+                    ChangeMission(ref civBriefing);
+                    ChangeSituation(ref civBriefing);
+                    ChangeEnemyForces(ref civBriefing);
+                    SaveFactionBriefing(ref civBriefing, civBriefingFilePath);
+                    break;
             }
-            */
-            //Make changes
 
         }
 
+        /// <summary>
+        /// replace whats in the credits section of the briefing with whats in the credits text box
+        /// </summary>
+        /// <param name="briefing"></param>
+        private void ChangeCredits(ref string briefing)
+        {
+            Regex creditsRgx = new Regex(creditsRegexExpression, RegexOptions.Singleline);
+            briefing = creditsRgx.Replace(briefing, creditsTextBox.Text);
+        }
+
+        /// <summary>
+        /// replace whats in the administration section of the briefing with whats in the administration text box
+        /// </summary>
+        /// <param name="briefing"></param>
+        private void ChangeAdmin(ref string briefing)
+        {
+            Regex adminRegex = new Regex(administrationRegexExpression, RegexOptions.Singleline);
+            briefing = adminRegex.Replace(briefing, administrationTextBox.Text);
+        }
+
+        /// <summary>
+        /// replace whats in the mission section of the briefing with whats in the mission text box
+        /// </summary>
+        /// <param name="briefing"></param>
+        private void ChangeMission(ref string briefing)
+        {
+            Regex missionRegex = new Regex(missionRegexExpression, RegexOptions.Singleline);
+            briefing = missionRegex.Replace(briefing, missionTextBox.Text);
+        }
+
+        /// <summary>
+        /// Replace whats in the situation section of the briefing with whats in the situation text box
+        /// </summary>
+        /// <param name="briefing"></param>
+        private void ChangeSituation(ref string briefing)
+        {
+            Regex situationRegex = new Regex(situationRegexExpression, RegexOptions.Singleline);
+            briefing = situationRegex.Replace(briefing, situationTextBox.Text);
+        }
+
+        /// <summary>
+        /// replaces whats in the enemy forces section of the briefing with whats in the enemy forces text box
+        /// </summary>
+        /// <param name="briefing"></param>
+        private void ChangeEnemyForces(ref string briefing)
+        {
+            Regex enemyForcesRegex = new Regex(enemyForcesRegexExpression, RegexOptions.Singleline);
+            //TODO: fix uncomment below line after enemy forces text box has been added
+           //briefing = enemyForcesRegex.Replace(briefing, enemyForcesTextBox.Text);
+        }
+
+        /// <summary>
+        /// Loads correct factions briefing when user selects a faction from the faction selection combo box
+        /// </summary>
+        /// <param name="sender">faction selection combo box</param>
+        /// <param name="e"></param>
         private void SideSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //get selection
@@ -257,7 +364,6 @@ namespace Nihon_Mission_Maker
                     break;
             }
 
-            //TODO: finish method
         }
 
         /// <summary>
