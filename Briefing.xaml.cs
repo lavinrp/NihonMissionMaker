@@ -137,9 +137,18 @@ namespace Nihon_Mission_Maker
 
             //get selection
             ComboBoxItem selection = (ComboBoxItem)(SideSelectionBox .SelectedValue);
+            string selectionString;
 
-            //convert selection to string
-            string selectionString = (string)selection.Content;
+            try
+            {
+                //convert selection to string
+                selectionString = (string)selection.Content;
+            }
+            catch
+            {
+                MessageBox.Show("Error saving briefing. Have you selected a faction?", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
             switch (selectionString)
             {
