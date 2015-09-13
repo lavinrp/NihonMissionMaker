@@ -39,7 +39,7 @@
             
             <!--Choose Side for Briefing-->
             <TextBlock Grid.Row="0" Grid.Column="0" Background="Gray" Foreground="black" FontSize="25" Width="70" HorizontalAlignment="Left" Margin="0, 5, 0, 0">Side</TextBlock><!--Margin="0,5,300,0"-->
-            <ComboBox Grid.Column="0" Grid.Row="1">
+            <ComboBox Grid.Column="0" Grid.Row="1" x:Name="SideSelectionBox" SelectionChanged="SideSelectionBox_SelectionChanged">
                 <ComboBoxItem x:Name="briefSideBlue">Blufor</ComboBoxItem>
                 <ComboBoxItem x:Name="briefSideInd">Indfor</ComboBoxItem>
                 <ComboBoxItem x:Name="briefSideRed">Opfor</ComboBoxItem>
