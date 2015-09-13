@@ -47,7 +47,7 @@ namespace Nihon_Mission_Maker
         private string administrationRegexExpression = "(?<=_adm = player createDiaryRecord \\[\"diary\", \\[\"Administration\",\"\\r\\n<br/>)(.*?)(?=\"\\]\\];)";
         private string missionRegexExpression = "(?<=_mis = player createDiaryRecord \\[\"diary\", \\[\"Mission\",\"\\r\\n<br/>)(.*?)(?=\"\\]\\])";
         private string situationRegexExpression = "(?<=_sit = player createDiaryRecord \\[\"diary\", \\[\"Situation\",\"\\r\\n<br/>\\r\\n)(.*?)(?=<br/><br/>\\r\\nENEMY FORCES)";
-        private string enemyForcesRegexExpression = "(?<=ENEMY FORCES\\r\\n<br/>)(.*?)(<br/><br/>\\r\\n\\r\\n\"\\]\\];)";
+        private string enemyForcesRegexExpression = "(?<=ENEMY FORCES\\r\\n<br/>)(.*?)(?=<br/><br/>\\r\\n(\\r\\n)?\"\\]\\];)";
 
         /// <summary>
         /// initialize all variables and the GUI
@@ -314,8 +314,7 @@ namespace Nihon_Mission_Maker
         private void ChangeEnemyForces(ref string briefing)
         {
             Regex enemyForcesRegex = new Regex(enemyForcesRegexExpression, RegexOptions.Singleline);
-            //TODO: fix uncomment below line after enemy forces text box has been added
-           //briefing = enemyForcesRegex.Replace(briefing, enemyForcesTextBox.Text);
+            briefing = enemyForcesRegex.Replace(briefing, enemyForcesTextBox.Text);
         }
 
         /// <summary>
@@ -436,7 +435,14 @@ namespace Nihon_Mission_Maker
         /// <param name="briefing">faction specific briefing string</param>
         private void DisplayEnemyForces(ref string briefing)
         {
-            //TODO: make gui element and display logic for enemy forces
+            //read in all matches to situation
+            var enemyForces = Regex.Matches(briefing, enemyForcesRegexExpression, RegexOptions.Singleline);
+
+            //write last match to GUI
+            foreach (Match enemyForcesMatch in enemyForces)
+            {
+                enemyForcesTextBox.Text = enemyForcesMatch.ToString();
+            }
         }
     }
 }

@@ -64,6 +64,9 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <!--credits-->
@@ -78,10 +81,13 @@
             <!--Situation-->
             <TextBlock Grid.Row="10" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="100">Situation</TextBlock>
             <TextBox x:Name="situationTextBox" Grid.Row="11" Background="LightGray" Foreground="Black" AcceptsReturn="True"></TextBox>
+            <!--Enemy Forces-->
+            <TextBlock Grid.Row="13" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="155">Enemy Forces</TextBlock>
+            <TextBox x:Name="enemyForcesTextBox" Grid.Row="14" Background="LightGray" Foreground="Black" AcceptsReturn="True"></TextBox>
         </Grid>
         
         <!--Save button-->
-        <Button x:Name="briefingSaveButton" Grid.Row="2" Grid.Column="1" Background="Gray" Foreground="Black" FontSize="30" Margin="20" Click="briefingSaveButton_Click">
+        <Button x:Name="briefingSaveButton" Grid.Row="2" Grid.Column="1" Background="Gray" Foreground="Black" FontSize="30" Margin="20" Click="briefingSaveButton_Click" ToolTip="Save briefing for selected faction">
             Save
         </Button>
     </Grid>
