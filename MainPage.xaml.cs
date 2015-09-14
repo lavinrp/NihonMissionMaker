@@ -27,13 +27,14 @@ namespace Nihon_Mission_Maker
 
         private void newMissionButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MissionViewPage());
+            //TODO: place a BWMF folder in the directory with the exe and pass that folder
+            //NavigationService.Navigate(new MissionViewPage());
         }
 
 
         private void editMissionButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MissionViewPage());
+            NavigationService.Navigate(new EditMissionPage());
         }
     }
 }

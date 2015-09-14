@@ -20,8 +20,12 @@ namespace Nihon_Mission_Maker
     /// </summary>
     public partial class MissionViewPage : Page
     {
-        public MissionViewPage()
+        private string bwmfFilePath;
+
+        public MissionViewPage(string bwmfFilePath)
         {
+            //store the file path for the BWMF
+            this.bwmfFilePath = bwmfFilePath;
             InitializeComponent();
         }
 
@@ -33,7 +37,7 @@ namespace Nihon_Mission_Maker
 
         private void CustomiseBriefingButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Briefing());
+            NavigationService.Navigate(new Briefing(bwmfFilePath));
         }
     }
 }

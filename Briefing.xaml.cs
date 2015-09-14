@@ -52,15 +52,17 @@ namespace Nihon_Mission_Maker
         /// <summary>
         /// initialize all variables and the GUI
         /// </summary>
-        public Briefing()
+        public Briefing(string passedBwmfFilePath)
         {
             InitializeComponent();
 
-            //TODO: take this path in from user and pass it to this function
-            string BWMFFilePath = "C:\\Users\\R Lavin\\Documents\\Arma 3 - Other Profiles\\NihonNukite\\TempMissionStore\\Nih Mission Maker\\bwmf";
+            //hardcoded path to testing BWMF
+            //string BWMFFilePath = "C:\\Users\\R Lavin\\Documents\\Arma 3 - Other Profiles\\NihonNukite\\TempMissionStore\\Nih Mission Maker\\bwmf";
+            string bwmfFilePath = passedBwmfFilePath;
+
 
             //file paths to briefings
-            briefingFolderFilePath = BWMFFilePath + "\\f\\briefing";
+            briefingFolderFilePath = bwmfFilePath + "\\f\\briefing";
             bluBriefingFilePath = briefingFolderFilePath + "\\f_briefing_nato.sqf";
             indBriefingFilePath = briefingFolderFilePath + "\\f_briefing_aaf.sqf";
             redBriefingFilePath = briefingFolderFilePath + "\\f_briefing_csat.sqf";
