@@ -22,8 +22,17 @@ namespace Nihon_Mission_Maker
     /// </summary>
     public partial class MissionViewPage : Page
     {
+        //filepath strings
         private string bwmfFilePath;
         private string pathToParentFolder;
+
+        //regex for finding elements in description.ext
+        string authorNameRegexExpression = "(?<=author = \")(.*?)(?=\";\\r\\nloadScreen)";
+        string missionNameRegexExpression = "(?<=onLoadName = \")(.*?)(?=\";)"; //TODO: complete Regex
+        string missionTypeRegexExpression = "(gameType = )(.*?)(?=;)";
+
+        //string for holding the contents of description.ext
+        private string descriptionExtTxt;
 
         public MissionViewPage(string bwmfFilePath)
         {
@@ -59,6 +68,7 @@ namespace Nihon_Mission_Maker
         private void LoadMissionElementsFromDirectory()
         {
             LoadElementsFromDirectoryName();
+            LoadElementsFromDescriptionExt();
         }
 
         /// <summary>
@@ -136,6 +146,85 @@ namespace Nihon_Mission_Maker
         /// Populates Author Name, Mission Type, and Mission Name using information from description.ext in the BWMF
         /// </summary>
         private void LoadElementsFromDescriptionExt()
+        {
+            string descriptionExtPath = bwmfFilePath + "\\description.ext";
+
+            //read in the description.ext if it exists
+            try
+            {
+                if (File.Exists(descriptionExtPath))
+                {
+                    using(StreamReader sr = new StreamReader(descriptionExtPath))
+                    {
+                        descriptionExtTxt = sr.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    throw (new System.IO.IOException("File Not Found"));
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error reading description.ext file", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+            //Display the Author Name, Mission Name, and mission Type
+            DisplayAuthorName(ref descriptionExtTxt);
+            DisplayMission(ref descriptionExtTxt);
+            DisplayMissionType(ref descriptionExtTxt);
+
+        }
+
+
+        /// <summary>
+        /// Uses regex to find the Author Name from a given description.ext
+        /// </summary>
+        /// <param name="description">text from a BWMF descreption.ext</param>
+        /// <returns></returns>
+        private void DisplayAuthorName(ref string description)
+        {
+            var matches = Regex.Matches(description, authorNameRegexExpression, RegexOptions.Singleline);
+            foreach (Match nameMatch in matches)
+            {
+                authorName.Text = nameMatch.ToString();
+            }     
+        }
+
+        /// <summary>
+        /// Uses regex to find the Mission Name from a given description.ext
+        /// </summary>
+        /// <param name="description">text as a string from a BWMF description.ext</param>
+        private void DisplayMission(ref string description)
+        {
+            var matches = Regex.Matches(description, missionNameRegexExpression, RegexOptions.Singleline);
+            foreach(Match missionMatch in matches)
+            {
+                missionDisplayName.Text = missionMatch.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Uses regex to determine if the mission is a coop or tvt using information from a given description.ext
+        /// </summary>
+        /// <param name="description">text as a string from a BWMF description.ext</param>
+        private void  DisplayMissionType(ref string description)
+        {
+            var matches = Regex.Matches(description, missionTypeRegexExpression, RegexOptions.Singleline);
+            foreach (Match missionTypeMatch in matches)
+            {
+                if (missionTypeMatch.ToString() == "Coop")
+                {
+                    missionTypeSelector.SelectedItem = missionTypeCOOP;
+                }
+                else
+                {
+                    missionTypeSelector.SelectedItem = missionTypeTVT;
+                }
+            }
+        }
+
+        private void missionTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

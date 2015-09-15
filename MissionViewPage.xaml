@@ -45,7 +45,7 @@
                 <TextBox Background="gray" FontSize="20" Foreground="black">Mission Type</TextBox>
                 
                 <!--combo box-->
-                <ComboBox x:Name="missionTypeSelector" Grid.Row="1" Background="Black" Foreground = "Gray">
+                <ComboBox x:Name="missionTypeSelector" Grid.Row="1" Background="Black" Foreground = "Gray" SelectionChanged="missionTypeSelector_SelectionChanged">
                     <ComboBoxItem x:Name="missionTypeCOOP">
                         COOP
                     </ComboBoxItem>
