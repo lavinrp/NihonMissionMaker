@@ -42,30 +42,54 @@
                     <RowDefinition Height ="*"/>
                 </Grid.RowDefinitions>
                 <!--tell user what the combo box is for-->
-                <TextBox Background="gray" FontSize="20" Foreground="black">Mission Type</TextBox>
+                <TextBlock Background="gray" FontSize="20" Foreground="black">Mission Type</TextBlock>
                 
                 <!--combo box-->
-                <ComboBox x:Name="missionTypeSelector" Grid.Row="1" Background="Black" Foreground = "Gray" SelectionChanged="missionTypeSelector_SelectionChanged">
+                <ComboBox x:Name="missionTypeSelector" Grid.Row="1" Background="Black" Foreground = "Gray" SelectionChanged="missionTypeSelector_SelectionChanged" Height="33" VerticalAlignment="Top">
                     <ComboBoxItem x:Name="missionTypeCOOP">
                         COOP
                     </ComboBoxItem>
                     <ComboBoxItem x:Name="missionTypeTVT">
-                        TvT
+                        TVT
                     </ComboBoxItem>
                 </ComboBox>
             </Grid>
-            <!--Authon Name box-->
-            <TextBox x:Name="authorName" Grid.Column="3" Grid.Row="2" Padding="5" FontSize="20" ToolTip="Author name">
-                Author Name
-            </TextBox>
+            <!--Author Name box-->
+            <Grid Grid.Column="3" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="authorName" Grid.Row="1" Padding="0" FontSize="20" ToolTip="Author name">
+                    Author Name
+                </TextBox>
+                <TextBlock Background="Gray" FontSize="20">Author Name</TextBlock>
+            </Grid>
+            
             <!--mission Name box-->
-            <TextBox x:Name="missionDisplayName"  Grid.Column="4" Grid.Row ="2" Padding="1" FontSize="20" ToolTip="Name That will display when the mision is played">
-                Mission name
-            </TextBox>
+            <Grid Grid.Column="4" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="missionDisplayName" Grid.Row ="1" FontSize="20" ToolTip="Name That will display when the mission is played">
+                    Mission name
+                </TextBox>
+                <TextBlock FontSize="20" Background="Gray">Mission Name</TextBlock>
+            </Grid>
+            
             <!--Mission file Name box-->
-            <TextBox x:Name="missionFileName" Grid.Column="5" Grid.Row="2" Padding="1" FontSize="20" ToolTip="Mission File name">
-                Mission file name
-            </TextBox>
+            <Grid Grid.Column="5" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="missionFileName" Grid.Row="1" FontSize="20" ToolTip="Mission File name">
+                    Mission file name
+                </TextBox>
+                <TextBlock Background="Gray" FontSize="20">Mission File Name</TextBlock>
+            </Grid>
+
         </Grid>
         <!--inner grid 2-->
         <Grid Grid.Row="1">
@@ -87,6 +111,9 @@
                 </Grid.RowDefinitions>
                 <!--combo box for selecting map-->
                 <ComboBox x:Name="mapNameComboBox" FontSize="30" Grid.Row="1" Foreground="Black">
+                    <ComboBoxItem x:Name="bwmfTemplate" FontSize="15">
+                        BWMF Template
+                    </ComboBoxItem>
                     <ComboBoxItem x:Name="HelvantisMap" FontSize="15">
                         Helvantis
                     </ComboBoxItem>
@@ -120,14 +147,14 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
-            <!--Customise Player button-->
-            <Button x:Name="CustomisePlayerUnitsButton" FontSize="20" Click="CustomisePlayerUnitsButton_Click" Grid.Row="2" Grid.Column="1"> Customise Player Units</Button>
+            <!--Customize Player button-->
+            <Button x:Name="CustomisePlayerUnitsButton" FontSize="20" Click="CustomisePlayerUnitsButton_Click" Grid.Row="2" Grid.Column="1"> Customize Player Units</Button>
             
-            <!--Customise Briefing button-->
-            <Button x:Name="CustomiseBriefingButton" FontSize="20" Grid.Row="2"  Grid.Column="3" Click="CustomiseBriefingButton_Click"> Customise Briefing</Button>
+            <!--Customize Briefing button-->
+            <Button x:Name="CustomiseBriefingButton" FontSize="20" Grid.Row="2"  Grid.Column="3" Click="CustomiseBriefingButton_Click"> Customize Briefing</Button>
             
             <!--Save-->
-            <Button x:Name="SaveButton" FontSize="20" Grid.Row="2" Grid.Column="5">Save Mission</Button>
+            <Button x:Name="SaveButton" FontSize="20" Grid.Row="2" Grid.Column="5" Click="SaveButton_Click">Save Mission</Button>
         </Grid>
     </Grid>
 </Page>

@@ -327,6 +327,8 @@ namespace Nihon_Mission_Maker
         /// <param name="briefing">faction specific briefing string</param>
         private void DisplayMission(ref string briefing)
         {
+
+            MessageBox.Show(briefing);
             //read in all the matches for Mission
             var mission = Regex.Matches(briefing, missionRegexExpression, RegexOptions.Singleline);
 

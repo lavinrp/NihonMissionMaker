@@ -66,7 +66,7 @@ namespace Nihon_Mission_Maker
         private void continueButton_Click(object sender, RoutedEventArgs e)
         {
             //if filePath has been set continue
-            if(filePath != "")
+            if(Directory.Exists(filePath))
             {
                 NavigationService.Navigate(new MissionViewPage(filePath));
             }

@@ -28,8 +28,8 @@ namespace Nihon_Mission_Maker
 
         //regex for finding elements in description.ext
         string authorNameRegexExpression = "(?<=author = \")(.*?)(?=\";\\r\\nloadScreen)";
-        string missionNameRegexExpression = "(?<=onLoadName = \")(.*?)(?=\";)"; //TODO: complete Regex
-        string missionTypeRegexExpression = "(gameType = )(.*?)(?=;)";
+        string missionNameRegexExpression = "(?<=onLoadName = \")(.*?)(?=\";)";
+        string missionTypeRegexExpression = "(?<=gameType = )(.*?)(?=;)";//TDM for tvt and Coop for COOP
 
         //string for holding the contents of description.ext
         private string descriptionExtTxt;
@@ -100,7 +100,7 @@ namespace Nihon_Mission_Maker
             //set mission file name to substring
             missionFileName.Text = missionFileNameString;
 
-            //set map based on extension or to helvantis if its empty
+            //set map based on extension or to BWMF if its empty
             switch (extension)
             {
                 case "anim_helvantis_v2":
@@ -113,11 +113,12 @@ namespace Nihon_Mission_Maker
                     mapNameComboBox.SelectedItem = stratisMap;
                     break;
                 default:
-                    mapNameComboBox.SelectedItem = HelvantisMap;
+                    mapNameComboBox.SelectedItem = bwmfTemplate;
                     break;
             }
         }
 
+        //TODO: make this function follow some kind of logic (or at least be less shit)
         /// <summary>
         /// Returns the name of the BWMF folder. Not the file path to the folder. Sets the path to the BWMF parent Folder.
         /// </summary>
@@ -131,15 +132,15 @@ namespace Nihon_Mission_Maker
                 {
                     //set path to BWMF folder
                     pathToParentFolder = bwmfFilePath.Substring(0, i);
-                    MessageBox.Show(pathToParentFolder);
                     //return the substring containing letters after the first slash
                     return bwmfFilePath.Substring(i + 1, bwmfFilePath.Length - i - 1);
                 }
             }
 
             //if no slash found return an empty string
-            return "";
             throw new System.IO.FileNotFoundException();
+            //return "";
+  
         }
 
         /// <summary>
@@ -163,16 +164,18 @@ namespace Nihon_Mission_Maker
                 {
                     throw (new System.IO.IOException("File Not Found"));
                 }
+
+                //Display the Author Name, Mission Name, and mission Type
+                DisplayAuthorName(ref descriptionExtTxt);
+                DisplayMission(ref descriptionExtTxt);
+                DisplayMissionType(ref descriptionExtTxt);
             }
             catch
             {
                 MessageBox.Show("Error reading description.ext file", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
-            //Display the Author Name, Mission Name, and mission Type
-            DisplayAuthorName(ref descriptionExtTxt);
-            DisplayMission(ref descriptionExtTxt);
-            DisplayMissionType(ref descriptionExtTxt);
+            
 
         }
 
@@ -227,6 +230,109 @@ namespace Nihon_Mission_Maker
         private void missionTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Replaces elements in the description.ext with their counterparts from MissionViewPage and saves
+        /// the changes to description.ext
+        /// </summary>
+        private void SaveElementsToDescriptionExt()
+        {
+            //replace author name
+            Regex authorReplaceRegex = new Regex(authorNameRegexExpression);
+            descriptionExtTxt = authorReplaceRegex.Replace(descriptionExtTxt, authorName.Text);
+
+            //replace Mission Name
+            Regex missionReplaceRegex = new Regex(missionNameRegexExpression);
+            descriptionExtTxt = missionReplaceRegex.Replace(descriptionExtTxt, missionDisplayName.Text);
+
+            //replace Mission type
+            string missionTypeReplacement="TDM";
+            if(missionTypeSelector.SelectedItem.Equals(missionTypeCOOP)) //change replacement if mission is a coop
+            {
+                missionTypeReplacement = "Coop";
+            }
+
+            Regex missionTypeReplaceRegex = new Regex(missionTypeRegexExpression);
+            descriptionExtTxt = missionTypeReplaceRegex.Replace(descriptionExtTxt, missionTypeReplacement);
+
+            //write file
+            string descriptionExtPath = bwmfFilePath + "\\description.ext";
+            try
+            {
+                System.IO.File.WriteAllText(descriptionExtPath, descriptionExtTxt);
+            }
+
+            catch
+            {
+                MessageBox.Show("Error writing description.ext", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        /// <summary>
+        /// Renames the mission directory with values taken from MissionViewPage
+        /// </summary>
+        private void RenameMissionDirectory()
+        {
+            //Determine what file extension to add based on the selected map
+            string fileType;
+            switch (((ComboBoxItem)mapNameComboBox.SelectedItem).Content.ToString())
+            {
+                case "Helvantis":
+                    fileType = ".anim_helvantis_v2";
+                    break;
+                case "Altis":
+                    fileType = ".Altis";
+                    break;
+                case "Stratis":
+                    fileType = ".Stratis";
+                    break;
+                case "BWMF Template":
+                    fileType = "";
+                    break;
+                default:
+                    fileType = "";
+                    break;
+            }
+
+            //rename directory based on MissionViewPage values
+            string newFilePath = pathToParentFolder + "\\" +missionFileName.Text + fileType;
+
+            if (newFilePath != bwmfFilePath)
+            {
+                try
+                {
+                    Directory.Move(bwmfFilePath, newFilePath);
+                }
+                catch
+                {
+                    MessageBox.Show("Could not save new directory", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
+           
+            bwmfFilePath = newFilePath;
+            
+            
+            GetBWMFFolderName();
+        }
+
+        /// <summary>
+        /// Saves values input for Mission type, Author Name, Mission Name, and Mission File Name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveElementsToDescriptionExt();
+            }
+            catch
+            {
+                MessageBox.Show("Error writing description.ext have you set all fields?", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+            RenameMissionDirectory();
         }
     }
 }
