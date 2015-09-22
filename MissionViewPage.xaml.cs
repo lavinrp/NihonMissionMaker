@@ -22,18 +22,20 @@ namespace Nihon_Mission_Maker
     /// </summary>
     public partial class MissionViewPage : Page
     {
+
+        #region basic class setup
         //filepath strings
         private string bwmfFilePath;
         private string pathToParentFolder;
 
         //regex for finding elements in description.ext
-        string authorNameRegexExpression = "(?<=author = \")(.*?)(?=\";\\r\\nloadScreen)";
+        string authorNameRegexExpression = "(?<=author = \")(.*?)(?=\";(\\r\\n|\\n)loadScreen)";
         string missionNameRegexExpression = "(?<=onLoadName = \")(.*?)(?=\";)";
         string missionTypeRegexExpression = "(?<=gameType = )(.*?)(?=;)";//TDM for tvt and Coop for COOP
 
         //string for holding the contents of description.ext
         private string descriptionExtTxt;
-
+ 
         public MissionViewPage(string bwmfFilePath)
         {
             //store the file path for the BWMF
@@ -41,7 +43,9 @@ namespace Nihon_Mission_Maker
             InitializeComponent();
             LoadMissionElementsFromDirectory();
         }
+        #endregion
 
+        #region page movement
         /// <summary>
         /// takes user to the page for editing mission units
         /// </summary>
@@ -61,7 +65,9 @@ namespace Nihon_Mission_Maker
         {
             NavigationService.Navigate(new Briefing(bwmfFilePath));
         }
+        #endregion
 
+        #region save / load elements
         /// <summary>
         /// Populates the fields in the MissionViewPage with information taken from the passed directory
         /// </summary>
@@ -179,57 +185,23 @@ namespace Nihon_Mission_Maker
 
         }
 
-
         /// <summary>
-        /// Uses regex to find the Author Name from a given description.ext
+        /// Saves values input for Mission type, Author Name, Mission Name, and Mission File Name
         /// </summary>
-        /// <param name="description">text from a BWMF descreption.ext</param>
-        /// <returns></returns>
-        private void DisplayAuthorName(ref string description)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var matches = Regex.Matches(description, authorNameRegexExpression, RegexOptions.Singleline);
-            foreach (Match nameMatch in matches)
+            try
             {
-                authorName.Text = nameMatch.ToString();
-            }     
-        }
-
-        /// <summary>
-        /// Uses regex to find the Mission Name from a given description.ext
-        /// </summary>
-        /// <param name="description">text as a string from a BWMF description.ext</param>
-        private void DisplayMission(ref string description)
-        {
-            var matches = Regex.Matches(description, missionNameRegexExpression, RegexOptions.Singleline);
-            foreach(Match missionMatch in matches)
-            {
-                missionDisplayName.Text = missionMatch.ToString();
+                SaveElementsToDescriptionExt();
             }
-        }
-
-        /// <summary>
-        /// Uses regex to determine if the mission is a coop or tvt using information from a given description.ext
-        /// </summary>
-        /// <param name="description">text as a string from a BWMF description.ext</param>
-        private void  DisplayMissionType(ref string description)
-        {
-            var matches = Regex.Matches(description, missionTypeRegexExpression, RegexOptions.Singleline);
-            foreach (Match missionTypeMatch in matches)
+            catch
             {
-                if (missionTypeMatch.ToString() == "Coop")
-                {
-                    missionTypeSelector.SelectedItem = missionTypeCOOP;
-                }
-                else
-                {
-                    missionTypeSelector.SelectedItem = missionTypeTVT;
-                }
+                MessageBox.Show("Error writing description.ext have you set all fields?", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
             }
-        }
-
-        private void missionTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            RenameMissionDirectory();
         }
 
         /// <summary>
@@ -247,8 +219,8 @@ namespace Nihon_Mission_Maker
             descriptionExtTxt = missionReplaceRegex.Replace(descriptionExtTxt, missionDisplayName.Text);
 
             //replace Mission type
-            string missionTypeReplacement="TDM";
-            if(missionTypeSelector.SelectedItem.Equals(missionTypeCOOP)) //change replacement if mission is a coop
+            string missionTypeReplacement = "TDM";
+            if (missionTypeSelector.SelectedItem.Equals(missionTypeCOOP)) //change replacement if mission is a coop
             {
                 missionTypeReplacement = "Coop";
             }
@@ -295,8 +267,16 @@ namespace Nihon_Mission_Maker
                     break;
             }
 
+            //validate directory name
+            if (missionFileName.Text.Contains("<") || missionFileName.Text.Contains(">") || missionFileName.Text.Contains(":") || missionFileName.Text.Contains("\"") || missionFileName.Text.Contains("/")
+                || missionFileName.Text.Contains("\\") || missionFileName.Text.Contains("|") || missionFileName.Text.Contains("?") || missionFileName.Text.Contains("*"))
+            {
+                MessageBox.Show("Invalid mission file name. Filename not changed.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
             //rename directory based on MissionViewPage values
-            string newFilePath = pathToParentFolder + "\\" +missionFileName.Text + fileType;
+            string newFilePath = pathToParentFolder + "\\" + missionFileName.Text + fileType;
 
             if (newFilePath != bwmfFilePath)
             {
@@ -309,30 +289,70 @@ namespace Nihon_Mission_Maker
                     MessageBox.Show("Could not save new directory", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
-           
+
             bwmfFilePath = newFilePath;
-            
-            
+
+
             GetBWMFFolderName();
+        }
+        #endregion
+
+
+        #region display elements
+        /// <summary>
+        /// Uses regex to find the Author Name from a given description.ext
+        /// </summary>
+        /// <param name="description">text from a BWMF descreption.ext</param>
+        /// <returns></returns>
+        private void DisplayAuthorName(ref string description)
+        {
+            var matches = Regex.Matches(description, authorNameRegexExpression, RegexOptions.Singleline);
+            foreach (Match nameMatch in matches)
+            {
+                authorName.Text = nameMatch.ToString();
+            }     
         }
 
         /// <summary>
-        /// Saves values input for Mission type, Author Name, Mission Name, and Mission File Name
+        /// Uses regex to find the Mission Name from a given description.ext
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        /// <param name="description">text as a string from a BWMF description.ext</param>
+        private void DisplayMission(ref string description)
         {
-            try
+            var matches = Regex.Matches(description, missionNameRegexExpression, RegexOptions.Singleline);
+            foreach(Match missionMatch in matches)
             {
-                SaveElementsToDescriptionExt();
+                missionDisplayName.Text = missionMatch.ToString();
             }
-            catch
-            {
-                MessageBox.Show("Error writing description.ext have you set all fields?", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
-            }
-            RenameMissionDirectory();
         }
+
+        /// <summary>
+        /// Uses regex to determine if the mission is a coop or tvt using information from a given description.ext
+        /// </summary>
+        /// <param name="description">text as a string from a BWMF description.ext</param>
+        private void  DisplayMissionType(ref string description)
+        {
+            var matches = Regex.Matches(description, missionTypeRegexExpression, RegexOptions.Singleline);
+            foreach (Match missionTypeMatch in matches)
+            {
+                if (missionTypeMatch.ToString() == "Coop")
+                {
+                    missionTypeSelector.SelectedItem = missionTypeCOOP;
+                }
+                else
+                {
+                    missionTypeSelector.SelectedItem = missionTypeTVT;
+                }
+            }
+        }
+        #endregion
+
+
+        private void missionTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+   
     }
 }

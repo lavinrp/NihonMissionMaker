@@ -23,8 +23,8 @@ namespace Nihon_Mission_Maker
     public partial class Briefing : Page
     {
 
+        #region Basic class setup
         //The file path of the folder that contains the briefings
-        //TODO: set this path based on user input path to BWMF
         string briefingFolderFilePath;
 
         //faction enum
@@ -43,11 +43,13 @@ namespace Nihon_Mission_Maker
         private string civBriefingFilePath;
 
         //regexs for briefing segments
-        private string creditsRegexExpression = "(?<=_cre = player createDiaryRecord \\[\"diary\", \\[\"Credits\",\"\\r\\n<br/>)(.*?)(?=<br/><br/>\\r\\nMade with F3)";
-        private string administrationRegexExpression = "(?<=_adm = player createDiaryRecord \\[\"diary\", \\[\"Administration\",\"\\r\\n<br/>)(.*?)(?=\"\\]\\];)";
-        private string missionRegexExpression = "(?<=_mis = player createDiaryRecord \\[\"diary\", \\[\"Mission\",\"\\r\\n<br/>)(.*?)(?=\"\\]\\])";
-        private string situationRegexExpression = "(?<=_sit = player createDiaryRecord \\[\"diary\", \\[\"Situation\",\"\\r\\n<br/>\\r\\n)(.*?)(?=<br/><br/>\\r\\nENEMY FORCES)";
-        private string enemyForcesRegexExpression = "(?<=ENEMY FORCES\\r\\n<br/>)(.*?)(?=<br/><br/>\\r\\n(\\r\\n)?\"\\]\\];)";
+        private string creditsRegexExpression = "(?<=_cre = player createDiaryRecord \\[\"diary\", \\[\"Credits\",\"(\\r\\n|\\n)<br/>)(.*?)(?=<br/><br/>(\\r\\n|\\n)Made with F3)";
+        private string administrationRegexExpression = "(?<=_adm = player createDiaryRecord \\[\"diary\", \\[\"Administration\",\"(\\r\\n|\\n)<br/>)(.*?)(?=\"\\]\\];)";
+        private string missionRegexExpression = "(?<=_mis = player createDiaryRecord \\[\"diary\", \\[\"Mission\",\"(\\r\\n|\\n)<br/>)(.*?)(?=\"\\]\\])";
+        private string situationRegexExpression = "(?<=_sit = player createDiaryRecord \\[\"diary\", \\[\"Situation\",\"(\\r\\n|\\n)<br/>(\\r\\n|\\n))(.*?)(?=<br/><br/>(\\r\\n|\\n)ENEMY FORCES)";
+        private string enemyForcesRegexExpression = "(?<=ENEMY FORCES(\\r\\n|\\n)<br/>)(.*?)(?=<br/><br/>(\\r\\n|\\n)(\\r\\n|\\n)?\"\\]\\];)";
+        
+
 
         /// <summary>
         /// initialize all variables and the GUI
@@ -75,7 +77,9 @@ namespace Nihon_Mission_Maker
             loadFactionBriefing(out civBriefing, civBriefingFilePath);
             
         }
+        #endregion
 
+        #region save / load
         /// <summary>
         /// Saves a factions briefing file to a string given a file path to the briefing
         /// </summary>
@@ -191,6 +195,9 @@ namespace Nihon_Mission_Maker
 
         }
 
+        #endregion
+
+        #region change text fields
         /// <summary>
         /// replace whats in the credits section of the briefing with whats in the credits text box
         /// </summary>
@@ -289,6 +296,9 @@ namespace Nihon_Mission_Maker
 
         }
 
+        #endregion
+
+        #region display text fields
         /// <summary>
         /// Fills the credits box with the credits from the given factions briefing
         /// </summary>
@@ -327,8 +337,6 @@ namespace Nihon_Mission_Maker
         /// <param name="briefing">faction specific briefing string</param>
         private void DisplayMission(ref string briefing)
         {
-
-            MessageBox.Show(briefing);
             //read in all the matches for Mission
             var mission = Regex.Matches(briefing, missionRegexExpression, RegexOptions.Singleline);
 
@@ -370,5 +378,6 @@ namespace Nihon_Mission_Maker
                 enemyForcesTextBox.Text = enemyForcesMatch.ToString();
             }
         }
+        #endregion
     }
 }
