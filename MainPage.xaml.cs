@@ -31,7 +31,6 @@ namespace Nihon_Mission_Maker
             //NavigationService.Navigate(new MissionViewPage());
         }
 
-
         private void editMissionButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new EditMissionPage());
