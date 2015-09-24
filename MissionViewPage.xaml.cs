@@ -35,13 +35,26 @@ namespace Nihon_Mission_Maker
 
         //string for holding the contents of description.ext
         private string descriptionExtTxt;
- 
+
+        //colors for user feedback
+        SolidColorBrush enabledColor = new SolidColorBrush(Colors.Green);
+        SolidColorBrush normalColor = new SolidColorBrush(Colors.LightGray);
+        SolidColorBrush errorColor = new SolidColorBrush(Colors.Red);
+
+        //bool to prevent save button from being enabled from components loading
+        bool trackChanges = false;
+
         public MissionViewPage(string bwmfFilePath)
         {
             //store the file path for the BWMF
             this.bwmfFilePath = bwmfFilePath;
+
             InitializeComponent();
+
             LoadMissionElementsFromDirectory();
+
+            //keep track of changes from here on
+            trackChanges = true;
         }
         #endregion
 
@@ -198,10 +211,15 @@ namespace Nihon_Mission_Maker
             }
             catch
             {
+                //display error
+                SaveButton.Background = errorColor;
                 MessageBox.Show("Error writing description.ext have you set all fields?", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
             RenameMissionDirectory();
+
+            //reset color to show save sucessful
+            SaveButton.Background = normalColor;
         }
 
         /// <summary>
@@ -286,6 +304,8 @@ namespace Nihon_Mission_Maker
                 }
                 catch
                 {
+                    //Display error with save
+                    SaveButton.Background = errorColor;
                     MessageBox.Show("Could not save new directory", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
@@ -297,6 +317,74 @@ namespace Nihon_Mission_Maker
         }
         #endregion
 
+        #region detect changes
+
+        /// <summary>
+        /// Call whenever a MissionViewPage element is changed. Changes color of save button to enabled
+        /// Use for input validation across multiple input sources
+        /// </summary>
+        private void ElementChanged()
+        {
+            //only change colors if changes are being tracked
+            if (trackChanges)
+            {
+                //change the color of the element to show it can be saved
+                SaveButton.Background = enabledColor;
+            }
+            
+        }
+
+        /// <summary>
+        /// Detects changes in the mission type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void missionTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// detects changes in the author name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void authorName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// detects changes in the display name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void missionDisplayName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// detects changes in the mission file name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void missionFileName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// detects changes in the map name ComboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mapNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ElementChanged();
+        }
+
+        #endregion
 
         #region display elements
         /// <summary>
@@ -345,14 +433,11 @@ namespace Nihon_Mission_Maker
                 }
             }
         }
+
+
+
+
         #endregion
 
-
-        private void missionTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-   
     }
 }

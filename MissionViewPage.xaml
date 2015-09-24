@@ -60,7 +60,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="authorName" Grid.Row="1" Padding="0" FontSize="20" ToolTip="Author name">
+                <TextBox x:Name="authorName" Grid.Row="1" Padding="0" FontSize="20" ToolTip="Author name" TextChanged="authorName_TextChanged">
                     Author Name
                 </TextBox>
                 <TextBlock Background="Gray" FontSize="20">Author Name</TextBlock>
@@ -72,7 +72,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="missionDisplayName" Grid.Row ="1" FontSize="20" ToolTip="Name That will display when the mission is played">
+                <TextBox x:Name="missionDisplayName" Grid.Row ="1" FontSize="20" ToolTip="Name That will display when the mission is played" TextChanged="missionDisplayName_TextChanged">
                     Mission name
                 </TextBox>
                 <TextBlock FontSize="20" Background="Gray">Mission Name</TextBlock>
@@ -84,7 +84,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="missionFileName" Grid.Row="1" FontSize="20" ToolTip="Mission File name">
+                <TextBox x:Name="missionFileName" Grid.Row="1" FontSize="20" ToolTip="Mission File name" TextChanged="missionFileName_TextChanged">
                     Mission file name
                 </TextBox>
                 <TextBlock Background="Gray" FontSize="20">Mission File Name</TextBlock>
@@ -110,7 +110,7 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <!--combo box for selecting map-->
-                <ComboBox x:Name="mapNameComboBox" FontSize="30" Grid.Row="1" Foreground="Black">
+                <ComboBox x:Name="mapNameComboBox" FontSize="30" Grid.Row="1" Foreground="Black" SelectionChanged="mapNameComboBox_SelectionChanged">
                     <ComboBoxItem x:Name="bwmfTemplate" FontSize="15">
                         BWMF Template
                     </ComboBoxItem>

@@ -48,8 +48,14 @@ namespace Nihon_Mission_Maker
         private string missionRegexExpression = "(?<=_mis = player createDiaryRecord \\[\"diary\", \\[\"Mission\",\"(\\r\\n|\\n)<br/>)(.*?)(?=\"\\]\\])";
         private string situationRegexExpression = "(?<=_sit = player createDiaryRecord \\[\"diary\", \\[\"Situation\",\"(\\r\\n|\\n)<br/>(\\r\\n|\\n))(.*?)(?=<br/><br/>(\\r\\n|\\n)ENEMY FORCES)";
         private string enemyForcesRegexExpression = "(?<=ENEMY FORCES(\\r\\n|\\n)<br/>)(.*?)(?=<br/><br/>(\\r\\n|\\n)(\\r\\n|\\n)?\"\\]\\];)";
-        
 
+        //Bool to determine if change should be saved
+        bool saveableChangeMade;
+
+        //colors for user feedback
+        SolidColorBrush enabledColor = new SolidColorBrush(Colors.Green);
+        SolidColorBrush normalColor = new SolidColorBrush(Colors.Gray);
+        SolidColorBrush errorColor = new SolidColorBrush(Colors.Red);
 
         /// <summary>
         /// initialize all variables and the GUI
@@ -75,7 +81,9 @@ namespace Nihon_Mission_Maker
             loadFactionBriefing(out indBriefing, indBriefingFilePath);
             loadFactionBriefing(out redBriefing, redBriefingFilePath);
             loadFactionBriefing(out civBriefing, civBriefingFilePath);
-            
+
+            //initialize savable change to false
+            saveableChangeMade = false;
         }
         #endregion
 
@@ -193,6 +201,8 @@ namespace Nihon_Mission_Maker
                     break;
             }
 
+            //reset color to gray to show that the briefing has been saved
+            briefingSaveButton.Background = normalColor;
         }
 
         #endregion
@@ -255,6 +265,9 @@ namespace Nihon_Mission_Maker
         /// <param name="e"></param>
         private void SideSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //temporary bool to store the current state of 
+            bool previousChangeMade = saveableChangeMade;
+            
             //get selection
             ComboBoxItem selection = (ComboBoxItem)((ComboBox)sender).SelectedValue;
 
@@ -294,6 +307,85 @@ namespace Nihon_Mission_Maker
                     break;
             }
 
+            //reset savable change made to its state before switching the text in the text boxes
+            saveableChangeMade = previousChangeMade;
+
+            //change color of save button back to normal if it was falsely changed
+            if (saveableChangeMade == false)
+            {
+                briefingSaveButton.Background = normalColor;
+            }
+        }
+
+        /// <summary>
+        /// Detects change in the credits text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void creditsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Notify the briefing that the element has been changed
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// Detects change in the administration text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void administrationTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Notify the briefing that the element has been changed
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// detects change in the mission text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void missionTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Notify the briefing that the element has been changed
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// Detects change in the situation text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void situationTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Notify the briefing that the element has been changed
+            ElementChanged();
+        }
+
+        /// <summary>
+        /// Detects change in the enemyForces text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void enemyForcesTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Notify the briefing that the element has been changed
+            ElementChanged();
+        }
+
+
+        /// <summary>
+        /// Call whenever a briefing element is changed. Changes Save button to Red
+        /// </summary>
+        private void ElementChanged()
+        {
+            //can only consider element changed if a faction is selected
+            if(SideSelectionBox.SelectedIndex != -1)
+            {
+                saveableChangeMade = true;
+
+                //change the color of the element to show it can be saved
+                briefingSaveButton.Background = enabledColor;
+            }
         }
 
         #endregion
@@ -379,5 +471,7 @@ namespace Nihon_Mission_Maker
             }
         }
         #endregion
+
+
     }
 }
