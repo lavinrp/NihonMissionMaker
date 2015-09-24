@@ -1,0 +1,3 @@
+﻿Helvantis	anim_helvantis_v2
+Altis	Altis
+Stratis	Stratis
