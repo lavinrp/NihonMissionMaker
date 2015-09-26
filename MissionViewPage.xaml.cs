@@ -333,11 +333,10 @@ namespace Nihon_Mission_Maker
         private void RenameMissionDirectory()
         {
             //Determine what file extension to add based on the selected map
-            string fileType = "." + mapsToDisplay.extensions[mapNameComboBox.SelectedIndex];//mapsToDisplay.NameToExtension(((ComboBoxItem)mapNameComboBox.SelectedItem).Content.ToString());
+            string fileType = "." + mapsToDisplay.extensions[mapNameComboBox.SelectedIndex];
 
             //validate directory name
-            if (missionFileName.Text.Contains("<") || missionFileName.Text.Contains(">") || missionFileName.Text.Contains(":") || missionFileName.Text.Contains("\"") || missionFileName.Text.Contains("/")
-                || missionFileName.Text.Contains("\\") || missionFileName.Text.Contains("|") || missionFileName.Text.Contains("?") || missionFileName.Text.Contains("*"))
+            if (!Validation.FileNameValidation(missionFileName.Text))
             {
                 MessageBox.Show("Invalid mission file name. Filename not changed.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
@@ -532,7 +531,16 @@ namespace Nihon_Mission_Maker
             string[] mapAndextensionArray = mapLine.Split('\t');
             //add map and extension to correct array
             mapNames.Add(mapAndextensionArray[0]);
-            extensions.Add(mapAndextensionArray[1]);
+
+            if (Validation.FileNameValidation(mapAndextensionArray[1]))
+            {
+                extensions.Add(mapAndextensionArray[1]);
+            }
+            else
+            {
+                MessageBox.Show("Map extension contains invalid characters. Using default extension.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                extensions.Add("");
+            }
         }
 
         /// <summary>
