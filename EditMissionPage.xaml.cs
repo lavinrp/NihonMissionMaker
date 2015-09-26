@@ -24,6 +24,9 @@ namespace Nihon_Mission_Maker
     /// </summary>
     public partial class EditMissionPage : Page
     {
+        /// <summary>
+        /// File path to bwmf folder
+        /// </summary>
         private string filePath;
 
         public EditMissionPage()
@@ -76,5 +79,6 @@ namespace Nihon_Mission_Maker
 
             }
         }
+
     }
 }

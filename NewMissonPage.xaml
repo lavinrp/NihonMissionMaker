@@ -5,10 +5,40 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Nihon_Mission_Maker"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="1000" d:DesignWidth="1000"
       Title="NewMissonPage">
 
     <Grid Background="Black">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--Top Grid for selecting folder-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Create button to select folder-->
+            <Button Grid.Row="1" x:Name="SelectOutputDir" FontSize="30" Click="SelectOutputDir_Click">SELECT OUTPUT DIRECTORY</Button>
+        </Grid>
+
+        <!--Bottom grid for continuing to next page-->
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Create button for moving to next page-->
+            <Button Grid.Row="1" FontSize="40" x:Name="continueButton" Click="continueButton_Click">Continue</Button>
+        </Grid>
+
     </Grid>
 </Page>

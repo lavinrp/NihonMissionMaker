@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace Nihon_Mission_Maker
 {
@@ -165,12 +166,12 @@ namespace Nihon_Mission_Maker
             {
                 //stores the path to the text file containing the maps
                 //string mapFileLocation = @"C:\Users\R Lavin\Desktop\Programing\C#\Nihon Mission Maker\Nihon Mission Maker\Maps.txt";
-                string mapFileLocation = @".\Maps.txt";
+                string mapFileLocation = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Maps.txt";//@".\Maps.txt";
                 if (File.Exists(mapFileLocation))
                 {
                     using (StreamReader sr = new StreamReader(mapFileLocation))
                     {
-                        //string to hold unaltered line containing the formated map display aneme
+                        //string to hold unaltered line containing the formated map display name
                         string rawMapAndExtension;
 
                         //read in maps and add them to the GUI until the end of the stream is reached
@@ -332,8 +333,13 @@ namespace Nihon_Mission_Maker
         /// </summary>
         private void RenameMissionDirectory()
         {
-            //Determine what file extension to add based on the selected map
-            string fileType = "." + mapsToDisplay.extensions[mapNameComboBox.SelectedIndex];
+            //Determine what file extension to add based on the selected map. Add nothing if the file extension is empty
+            string selectedMapExtension = mapsToDisplay.extensions[mapNameComboBox.SelectedIndex];
+            string fileType= "";
+            if (!String.IsNullOrWhiteSpace(selectedMapExtension))
+            {
+                fileType = "." + mapsToDisplay.extensions[mapNameComboBox.SelectedIndex];
+            }
 
             //validate directory name
             if (!Validation.FileNameValidation(missionFileName.Text))

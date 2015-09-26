@@ -10,20 +10,21 @@
     <!-- outer grid-->
     <Grid Background="black">
         <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
         <!--inner grid 1-->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -31,34 +32,32 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <!--Mission type selector-->
-            <Grid Grid.Row="2" Grid.Column="2"> <!--make mini grid-->
+            <Grid Grid.Row="1" Grid.Column="1"> <!--make mini grid-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height ="*"/>
-                    <RowDefinition Height ="*"/>
+                    <RowDefinition Height ="2*"/>
                 </Grid.RowDefinitions>
                 <!--tell user what the combo box is for-->
                 <TextBlock Background="gray" FontSize="20" Foreground="black">Mission Type</TextBlock>
                 
-                <!--combo box-->
-                <ComboBox x:Name="missionTypeSelector" Grid.Row="1"  Foreground = "Black" SelectionChanged="missionTypeSelector_SelectionChanged" Height="33" VerticalAlignment="Top">
-                    <ComboBoxItem x:Name="missionTypeCOOP">
+                <!--mission type combo box-->
+                <ComboBox x:Name="missionTypeSelector" Grid.Row="1"  Foreground = "Black" SelectionChanged="missionTypeSelector_SelectionChanged" FontSize="25">
+                    <ComboBoxItem x:Name="missionTypeCOOP" FontSize="20">
                         COOP
                     </ComboBoxItem>
-                    <ComboBoxItem x:Name="missionTypeTVT">
+                    <ComboBoxItem x:Name="missionTypeTVT" FontSize="20">
                         TVT
                     </ComboBoxItem>
                 </ComboBox>
             </Grid>
             <!--Author Name box-->
-            <Grid Grid.Column="3" Grid.Row="2">
+            <Grid Grid.Column="3" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <TextBox x:Name="authorName" Grid.Row="1" Padding="0" FontSize="20" ToolTip="Author name" TextChanged="authorName_TextChanged">
                     Author Name
@@ -67,10 +66,10 @@
             </Grid>
             
             <!--mission Name box-->
-            <Grid Grid.Column="4" Grid.Row="2">
+            <Grid Grid.Column="5" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <TextBox x:Name="missionDisplayName" Grid.Row ="1" FontSize="20" ToolTip="Name That will display when the mission is played" TextChanged="missionDisplayName_TextChanged">
                     Mission name
@@ -78,17 +77,7 @@
                 <TextBlock FontSize="20" Background="Gray">Mission Name</TextBlock>
             </Grid>
             
-            <!--Mission file Name box-->
-            <Grid Grid.Column="5" Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBox x:Name="missionFileName" Grid.Row="1" FontSize="20" ToolTip="Mission File name" TextChanged="missionFileName_TextChanged">
-                    Mission file name
-                </TextBox>
-                <TextBlock Background="Gray" FontSize="20">Mission File Name</TextBlock>
-            </Grid>
+            
 
         </Grid>
         <!--inner grid 2-->
@@ -100,11 +89,25 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!--Mission file Name box-->
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="missionFileName" Grid.Row="1" FontSize="20" ToolTip="Mission File name" TextChanged="missionFileName_TextChanged">
+                    Mission file name
+                </TextBox>
+                <TextBlock Background="Gray" FontSize="20">Mission File Name</TextBlock>
+            </Grid>
+            
             <!--map selection-->
-            <Grid Grid.Row="1" Grid.Column="1"><!--mini grid for combo box-->
+            <Grid Grid.Row="1" Grid.Column="3"><!--mini grid for combo box-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="2*"/>
@@ -117,8 +120,6 @@
         <!--inner grid 3-->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
@@ -140,8 +141,11 @@
             <!--Customize Briefing button-->
             <Button x:Name="CustomiseBriefingButton" FontSize="20" Grid.Row="2"  Grid.Column="3" Click="CustomiseBriefingButton_Click"> Customize Briefing</Button>
             
-            <!--Save-->
-            <Button x:Name="SaveButton" FontSize="20" Grid.Row="2" Grid.Column="5" Click="SaveButton_Click">Save Mission</Button>
+            
         </Grid>
+
+        <!--Save-->
+        <Button x:Name="SaveButton" FontSize="25" Grid.Row="3" Grid.Column="5" Click="SaveButton_Click" Margin="100,25" Background="Gray">Save Mission</Button>
+
     </Grid>
 </Page>
