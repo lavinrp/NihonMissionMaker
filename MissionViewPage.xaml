@@ -111,6 +111,7 @@
                 </Grid.RowDefinitions>
                 <!--combo box for selecting map-->
                 <ComboBox x:Name="mapNameComboBox" FontSize="30" Grid.Row="1" Foreground="Black" SelectionChanged="mapNameComboBox_SelectionChanged">
+                    <!-- 
                     <ComboBoxItem x:Name="bwmfTemplate" FontSize="15">
                         BWMF Template
                     </ComboBoxItem>
@@ -123,6 +124,7 @@
                     <ComboBoxItem x:Name="stratisMap" FontSize="15">
                         Stratis
                     </ComboBoxItem>
+                    -->
                 </ComboBox>
                 <TextBlock Background="Gray" FontSize="20">Map Name</TextBlock>
             </Grid>
