@@ -24,5 +24,15 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
         }
+
+        private void attachmentSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void attachmentSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

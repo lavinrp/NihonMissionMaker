@@ -74,6 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LoadoutEditor.xaml.cs">
+      <DependentUpon>LoadoutEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validation.cs" />
     <Compile Include="UnitViewerPage.xaml.cs">
       <DependentUpon>UnitViewerPage.xaml</DependentUpon>
@@ -83,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditMissionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoadoutEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
