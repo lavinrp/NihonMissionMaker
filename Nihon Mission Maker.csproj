@@ -77,9 +77,15 @@
     <Compile Include="LoadoutEditor.xaml.cs">
       <DependentUpon>LoadoutEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UniformAndItemEditor.xaml.cs">
+      <DependentUpon>UniformAndItemEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validation.cs" />
     <Compile Include="UnitViewerPage.xaml.cs">
       <DependentUpon>UnitViewerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WeaponEditor.xaml.cs">
+      <DependentUpon>WeaponEditor.xaml</DependentUpon>
     </Compile>
     <Page Include="Briefing.xaml">
       <SubType>Designer</SubType>
@@ -126,7 +132,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UniformAndItemEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UnitViewerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WeaponEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,329 @@
+﻿<Page x:Class="Nihon_Mission_Maker.UniformAndItemEditor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Nihon_Mission_Maker"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1000"
+      Title="UniformAndItemEditor">
+
+    <!--Main Grid-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--left grid-->
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".25*"/>
+                <RowDefinition Height=".75*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <!--Faction select-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox Grid.Column="0" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Side
+                    </TextBlock>
+                </Viewbox>
+                <ComboBox Grid.Row="1" Grid.Column="0">
+                    <ComboBoxItem>Blufor</ComboBoxItem>
+                    <ComboBoxItem>Opfor</ComboBoxItem>
+                    <ComboBoxItem>Indfor</ComboBoxItem>
+                    <ComboBoxItem>Civ</ComboBoxItem>
+                    <ComboBoxItem>Universal</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <!--Uniforms grid-->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+                <!--Label-->
+                <Viewbox Grid.Row="0">
+                    <TextBlock Foreground="Gray">Uniforms</TextBlock>
+                </Viewbox>
+
+                <!--Existing config Combo box-->
+                <ComboBox Grid.Row="1" Background="LightGray" x:Name="UniformSelectComboBox"></ComboBox>
+
+                <!--Grid for uniform items-->
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Uniform name-->
+                    <Viewbox Grid.Row="0" HorizontalAlignment="Left">
+                        <TextBlock Foreground="Gray">Uniform Name</TextBlock>
+                    </Viewbox>
+                    <TextBox Grid.Row="1" Background="Gray" Foreground="Black" FontSize="30">Example_Name</TextBox>
+
+                    <!--Uniform-->
+                    <Viewbox Grid.Row="3" HorizontalAlignment="Left">
+                        <TextBlock Foreground="Gray">Uniform class names</TextBlock>
+                    </Viewbox>
+                    <TextBox Grid.Row="4" Background="Gray" Foreground="Black" FontSize="30">Example_Name</TextBox>
+
+                    <!--Vest-->
+                    <Viewbox Grid.Row="5" HorizontalAlignment="Left">
+                        <TextBlock Foreground="Gray">Vest class names</TextBlock>
+                    </Viewbox>
+                    <TextBox Grid.Row="6" Background="Gray" Foreground="Black" FontSize="30">Example_Name</TextBox>
+
+                    <!--Headgear-->
+                    <Viewbox Grid.Row="7" HorizontalAlignment="Left">
+                        <TextBlock Foreground="Gray">Headgear class names</TextBlock>
+                    </Viewbox>
+                    <TextBox Grid.Row="8" Background="Gray" Foreground="Black" FontSize="30">Example_Name</TextBox>
+
+                    <!--Backpack-->
+                    <Viewbox Grid.Row="9" HorizontalAlignment="Left">
+                        <TextBlock Foreground="Gray">Vest class names</TextBlock>
+                    </Viewbox>
+                    <TextBox Grid.Row="10" Background="Gray" Foreground="Black" FontSize="30">Example_Name</TextBox>
+
+                    <!--Save and save as-->
+                    <Grid Grid.Row="11">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Margin="20,5">
+                            <Viewbox>
+                                <TextBlock>
+                                Save
+                                </TextBlock>
+                            </Viewbox>
+                        </Button>
+                        <Button Grid.Column="1" Margin="20,5">
+                            <Viewbox>
+                                <TextBlock>
+                                Save As
+                                </TextBlock>
+                            </Viewbox>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+            <!--Backpack Items-->
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <!--label-->
+                <Viewbox Grid.Row="0" HorizontalAlignment="Left">
+                    <TextBlock Foreground="gray">
+                        Backpack Items
+                    </TextBlock>
+                </Viewbox>
+                <!--combo box-->
+                <ComboBox x:Name="backpackItemsComboBox" Grid.Row="1"/>
+                <!--Backpack Item Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">Backpack Item Name</TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Foreground="Black" Background="Gray" FontSize="30">
+                    Example item Name
+                </TextBox>
+                <!--Backpack item Class Name-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Background="black" Foreground="Gray">
+                        Backpack Item Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_class_Name
+                </TextBox>
+                <!--Save buttons-->
+                <Grid Grid.Row="6" Margin="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="backpackItemsSaveButton" Grid.Column="0" Margin="30, 2" Click="backpackItemsSaveButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="backpackItemsSaveAsButton" Grid.Column="1" Margin="30, 2" Click="backpackItemsSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Grid>
+
+        </Grid>
+        
+        <!--Right Grid-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".35*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height=".25*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height=".25*"/>
+            </Grid.RowDefinitions>
+
+            <!--Linked items-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <!--label-->
+                <Viewbox Grid.Row="0" HorizontalAlignment="Left">
+                    <TextBlock Foreground="gray">
+                            Linked Items
+                    </TextBlock>
+                </Viewbox>
+                <!--combo box-->
+                <ComboBox x:Name="linkedItemsComboBox" Grid.Row="1"/>
+                <!--Linked Item Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">Linked Item Name</TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Foreground="Black" Background="Gray" FontSize="30">
+                    Example item Name
+                </TextBox>
+                <!--Attachment Class Name-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Background="black" Foreground="Gray">
+                            Linked Item Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_class_Name
+                </TextBox>
+                <!--Save buttons-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="linkedItemsSaveButton" Grid.Column="0" Margin="30, 2" Click="linkedItemsSaveButton_Click" >
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="linkedItemsSaveAsButton" Grid.Column="1" Margin="30, 2" Click="linkedItemsSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <!--General Items-->
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <!--label-->
+                <Viewbox Grid.Row="0" HorizontalAlignment="Left">
+                    <TextBlock Foreground="gray">
+                            General Items
+                    </TextBlock>
+                </Viewbox>
+                <!--combo box-->
+                <ComboBox x:Name="generalItemsComboBox" Grid.Row="1"/>
+                <!--Attachment Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">General Item Name</TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Foreground="Black" Background="Gray" FontSize="30">
+                    Example item Name
+                </TextBox>
+                <!--Attachment Class Name-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Background="black" Foreground="Gray">
+                            General Item Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_class_Name
+                </TextBox>
+                <!--Save buttons-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="generalItemsSaveButton" Grid.Column="0" Margin="30, 2" Click="generalItemsSaveButton_Click" >
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="generalItemsSaveAsButton" Grid.Column="1" Margin="30, 2" Click="generalItemsSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
