@@ -34,5 +34,76 @@ namespace Nihon_Mission_Maker
         {
 
         }
+
+        private void linkedItemsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void linkedItemsSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backpackItemsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backpackItemsSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void generalItemsSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ammunitionSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ammunitionSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void primaryWeaponSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void primaryWeaponSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void secondaryWeaponSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void secondaryWeaponSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void launcherSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void launcherSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void generalItemsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

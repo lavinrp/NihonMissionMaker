@@ -24,5 +24,10 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
         }
+
+        private void loadoutsButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new LoadoutEditor());
+        }
     }
 }
