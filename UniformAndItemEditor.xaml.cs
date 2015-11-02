@@ -24,5 +24,70 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
         }
+
+        private void sideSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void UniformSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void uniformSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void uniformSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backpackItemsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void backpackItemsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backpackItemsSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void linkedItemsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void linkedItemsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void linkedItemsSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void generalItemsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void generalItemsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void generalItemsSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

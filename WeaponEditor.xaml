@@ -8,7 +8,373 @@
       d:DesignHeight="1000" d:DesignWidth="1000"
       Title="WeaponEditor">
 
-    <Grid>
-        
+    <Grid Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--left grid-->
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".25*"/>
+                <RowDefinition Height=".75*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <!--Faction select-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox Grid.Column="0" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Side
+                    </TextBlock>
+                </Viewbox>
+                <ComboBox x:Name="sideSelectComboBox" Grid.Row="1" Grid.Column="0" SelectionChanged="sideSelectComboBox_SelectionChanged">
+                    <ComboBoxItem>Blufor</ComboBoxItem>
+                    <ComboBoxItem>Opfor</ComboBoxItem>
+                    <ComboBoxItem>Indfor</ComboBoxItem>
+                    <ComboBoxItem>Civ</ComboBoxItem>
+                    <ComboBoxItem>Universal</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <!--Ammo Types-->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <!--Label-->
+                <Viewbox>
+                    <TextBlock Foreground="Gray">
+                        Ammunition
+                    </TextBlock>
+                </Viewbox>
+                <!--Selection combo box-->
+                <ComboBox x:Name="ammunitionSelectionComboBox" Grid.Row = "1" SelectionChanged="ammunitionSelectionComboBox_SelectionChanged"/>
+                <!--Ammunition Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Ammunition Type Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Background="Gray" Foreground="Black" FontSize="30">
+                    Example Ammunition Name
+                </TextBox>
+                <!--Ammunition Class Names-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Ammunition Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_Ammunition_Class_Name
+                </TextBox>
+
+                <!--Save buttons-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ammunitionSaveButton" Grid.Column="0" Margin="30, 2" Click="ammunitionSaveButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="ammunitionSaveAsButton" Grid.Column="1" Margin="30, 2" Click="ammunitionSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+
+            </Grid>
+
+            <!--Attachments-->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <!--Label-->
+                <Viewbox Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Gray">
+                        Attachment
+                    </TextBlock>
+                </Viewbox>
+                <!--Selection combo box-->
+                <ComboBox x:Name="attachmentSelectionComboBox" Grid.Row = "1" SelectionChanged="attachmentSelectionComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
+                <!--Attachment Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Gray">
+                        Attachment Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Background="Gray" Foreground="Black" FontSize="30" Grid.ColumnSpan="2">
+                    Example Attachment Name
+                </TextBox>
+                <!--Ammunition Class Names-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                    <TextBlock Foreground="Gray">
+                        Attachment Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30" Grid.ColumnSpan="2">
+                    Example_Ammunition_Class_Name
+                </TextBox>
+
+                <!--Save buttons-->
+                <Grid Grid.Row="6" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="attachmentSaveButton" Grid.Column="0" Margin="30, 2" Click="attachmentSaveButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="attachmentSaveAsButton" Grid.Column="1" Margin="30, 2" Click="attachmentSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+
+            </Grid>
+
+
+        </Grid>
+
+        <!--Right Grid-->
+        <Grid Margin="10" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".25*"/>
+                <RowDefinition Height=".75*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <!--Primary Weapon-->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <!--Label-->
+                <Viewbox>
+                    <TextBlock Foreground="Gray">
+                        Primary Weapon
+                    </TextBlock>
+                </Viewbox>
+                <!--Selection combo box-->
+                <ComboBox x:Name="primaryWeaponSelectionComboBox" Grid.Row = "1" SelectionChanged="primaryWeaponSelectionComboBox_SelectionChanged"/>
+                <!--Weapon Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Weapon Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Background="Gray" Foreground="Black" FontSize="30">
+                    Example Weapon Name
+                </TextBox>
+                <!--Ammunition Class Names-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Weapon Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_Weapon_Class_Name
+                </TextBox>
+
+                <!--Save buttons-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="primaryWeaponSaveButton" Grid.Column="0" Margin="30, 2" Click="primaryWeaponSaveButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="primaryWeaponSaveAsButton" Grid.Column="1" Margin="30, 2" Click="primaryWeaponSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <!--Secondary Weapon-->
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <!--Label-->
+                <Viewbox>
+                    <TextBlock Foreground="Gray">
+                        Secondary Weapon
+                    </TextBlock>
+                </Viewbox>
+                <!--Selection combo box-->
+                <ComboBox x:Name="secondaryWeaponSelectionComboBox" Grid.Row = "1" SelectionChanged="secondaryWeaponSelectionComboBox_SelectionChanged"/>
+                <!--Weapon Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Weapon Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Background="Gray" Foreground="Black" FontSize="30">
+                    Example Weapon Name
+                </TextBox>
+                <!--Weapon Class Name-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Weapon Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_Weapon_Class_Name
+                </TextBox>
+
+                <!--Save buttons-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="secondaryWeaponSaveButton" Grid.Column="0" Margin="30, 2" Click="secondaryWeaponSaveButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="secondaryWeaponSaveAsButton" Grid.Column="1" Margin="30, 2" Click="secondaryWeaponSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Grid>
+
+
+            <!--Launcher-->
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <!--Label-->
+                <Viewbox>
+                    <TextBlock Foreground="Gray">
+                        Launcher
+                    </TextBlock>
+                </Viewbox>
+                <!--Selection combo box-->
+                <ComboBox x:Name="launcherSelectionComboBox" Grid.Row = "1" SelectionChanged="launcherSelectionComboBox_SelectionChanged"/>
+                <!--Weapon Name-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Weapon Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="3" Background="Gray" Foreground="Black" FontSize="30">
+                    Example Weapon Name
+                </TextBox>
+                <!--Weapon Class Name-->
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Gray">
+                        Weapon Class Name
+                    </TextBlock>
+                </Viewbox>
+                <TextBox Grid.Row="5" Background="Gray" Foreground="Black" FontSize="30">
+                    Example_Weapon_Class_Name
+                </TextBox>
+
+                <!--Save buttons-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="launcherSaveButton" Grid.Column="0" Margin="30, 2" Click="launcherSaveButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="launcherSaveAsButton" Grid.Column="1" Margin="30, 2" Click="launcherSaveAsButton_Click">
+                        <Viewbox>
+                            <TextBlock>
+                                    Save As
+                            </TextBlock>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Grid>
+
+        </Grid>
     </Grid>
 </Page>

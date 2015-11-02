@@ -9,7 +9,7 @@
       Title="UniformAndItemEditor">
 
     <!--Main Grid-->
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -41,7 +41,7 @@
                         Side
                     </TextBlock>
                 </Viewbox>
-                <ComboBox Grid.Row="1" Grid.Column="0">
+                <ComboBox x:Name="sideSelectionComboBox" Grid.Row="1" Grid.Column="0" SelectionChanged="sideSelectionComboBox_SelectionChanged">
                     <ComboBoxItem>Blufor</ComboBoxItem>
                     <ComboBoxItem>Opfor</ComboBoxItem>
                     <ComboBoxItem>Indfor</ComboBoxItem>
@@ -63,7 +63,7 @@
                 </Viewbox>
 
                 <!--Existing config Combo box-->
-                <ComboBox Grid.Row="1" Background="LightGray" x:Name="UniformSelectComboBox"></ComboBox>
+                <ComboBox Grid.Row="1" Background="LightGray" x:Name="UniformSelectComboBox" SelectionChanged="UniformSelectComboBox_SelectionChanged"></ComboBox>
 
                 <!--Grid for uniform items-->
                 <Grid Grid.Row="2">
@@ -119,14 +119,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Margin="20,5">
+                        <Button x:Name="uniformSaveButton" Grid.Column="0" Margin="20,5" Click="uniformSaveButton_Click">
                             <Viewbox>
                                 <TextBlock>
                                 Save
                                 </TextBlock>
                             </Viewbox>
                         </Button>
-                        <Button Grid.Column="1" Margin="20,5">
+                        <Button x:Name="uniformSaveAsButton" Grid.Column="1" Margin="20,5" Click="uniformSaveAsButton_Click">
                             <Viewbox>
                                 <TextBlock>
                                 Save As
@@ -157,7 +157,7 @@
                     </TextBlock>
                 </Viewbox>
                 <!--combo box-->
-                <ComboBox x:Name="backpackItemsComboBox" Grid.Row="1"/>
+                <ComboBox x:Name="backpackItemsComboBox" Grid.Row="1" SelectionChanged="backpackItemsComboBox_SelectionChanged"/>
                 <!--Backpack Item Name-->
                 <Viewbox Grid.Row="2" HorizontalAlignment="Left">
                     <TextBlock Foreground="Gray">Backpack Item Name</TextBlock>
@@ -200,7 +200,7 @@
         </Grid>
         
         <!--Right Grid-->
-        <Grid Grid.Column="1">
+        <Grid Margin="10" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height=".35*"/>
                 <RowDefinition Height="*"/>
@@ -227,7 +227,7 @@
                     </TextBlock>
                 </Viewbox>
                 <!--combo box-->
-                <ComboBox x:Name="linkedItemsComboBox" Grid.Row="1"/>
+                <ComboBox x:Name="linkedItemsComboBox" Grid.Row="1" SelectionChanged="linkedItemsComboBox_SelectionChanged"/>
                 <!--Linked Item Name-->
                 <Viewbox Grid.Row="2" HorizontalAlignment="Left">
                     <TextBlock Foreground="Gray">Linked Item Name</TextBlock>
@@ -285,7 +285,7 @@
                     </TextBlock>
                 </Viewbox>
                 <!--combo box-->
-                <ComboBox x:Name="generalItemsComboBox" Grid.Row="1"/>
+                <ComboBox x:Name="generalItemsComboBox" Grid.Row="1" SelectionChanged="generalItemsComboBox_SelectionChanged"/>
                 <!--Attachment Name-->
                 <Viewbox Grid.Row="2" HorizontalAlignment="Left">
                     <TextBlock Foreground="Gray">General Item Name</TextBlock>

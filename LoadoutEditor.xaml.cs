@@ -105,5 +105,15 @@ namespace Nihon_Mission_Maker
         {
 
         }
+
+        private void editWeaponOptionsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editUniformsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

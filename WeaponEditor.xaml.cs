@@ -24,5 +24,85 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
         }
+
+        private void attachmentSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void attachmentSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void sideSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ammunitionSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ammunitionSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ammunitionSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void attachmentSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void primaryWeaponSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void primaryWeaponSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void primaryWeaponSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void secondaryWeaponSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void secondaryWeaponSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void secondaryWeaponSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void launcherSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void launcherSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void launcherSaveAsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
