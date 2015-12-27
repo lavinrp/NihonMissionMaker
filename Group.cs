@@ -8,21 +8,21 @@ namespace GroupMakerNoGui
 {
     class Group
     {
+
+        #region constructors
         public Group()
         {
             //assign default values to the group
             side = "WEST";
             tag = "FAIL";
-            unitCount = 0;
 
             units = new List<Unit>();
         }
 
-        public Group(string side, int unitCount, string tag, List<Unit> units)
+        public Group(string side, string tag, List<Unit> units)
         {
             //assign specific values to the group
             this.side = side;
-            this.UnitCount = unitCount;
             this.tag = tag;
             this.units = units;
         }
@@ -48,17 +48,16 @@ namespace GroupMakerNoGui
                 units.Add(tempUnit);
             }
 
-
             //assign specific values to the group
             this.side = side;
-            this.UnitCount = unitCount;
             this.tag = tag;
         }
 
+        #endregion
 
-        //Getters and setters for all member variables
+        #region Getters and setters 
 
-        //getter and ssetter for side
+        //getter and setter for side
         public string Side
         {
             get
@@ -77,11 +76,7 @@ namespace GroupMakerNoGui
         {
             get
             {
-                return unitCount;
-            }
-            set
-            {
-                unitCount = value;
+                return units.Count();
             }
         }
         //getter and setter for tag
@@ -97,6 +92,10 @@ namespace GroupMakerNoGui
                 tag = value;
             }
         }
+
+        #endregion
+
+        #region methods
 
         /// <summary>
         /// adds a unit to the group
@@ -122,10 +121,13 @@ namespace GroupMakerNoGui
             return "";
         }
 
-        //private member variables for each group
+        #endregion
+
+        #region private member variables
         private string side;
         private int unitCount;
         private string tag;
         private List<Unit> units;
+        #endregion
     }
 }

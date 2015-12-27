@@ -8,16 +8,15 @@ namespace GroupMakerNoGui
 {
     class Unit
     {
-        ///////////////
-        //constructors
-        //////////////
- 
+
+        #region Constructors
+
         //default constructor
         public Unit()
         {
             id = 0;
             side = "WEST";
-            vehicleName = "B_Soldier_TL_F";
+            vehicleName = DefaultVehicleName;
             UnitName = "A1 FTL";
             rank = 0;
             skill = 0;
@@ -29,7 +28,7 @@ namespace GroupMakerNoGui
         {
             id = 0;
             this.side = side;
-            vehicleName = "B_Soldier_TL_F";
+            vehicleName = DefaultVehicleName;
             UnitName = "A1 FTL";
             rank = 0;
             skill = 0;
@@ -38,10 +37,10 @@ namespace GroupMakerNoGui
             tag = "";
         }
 
+        #endregion
 
-        ///////////////////
-        //member functions
-        //////////////////
+        #region Methods
+
 
         //TODO(Ryan Lavin): fill stub for units GetOutput
         public string GetOutput()
@@ -49,9 +48,9 @@ namespace GroupMakerNoGui
             return "";
         }
 
-        //////////////////////
-        //getters and setters
-        /////////////////////
+        #endregion
+
+        #region Getters and Setters
 
         //getter and setter for id
         public int ID 
@@ -175,42 +174,65 @@ namespace GroupMakerNoGui
                 tag = value;
             }
         }
+        #endregion
 
-
-        ///////////////////
-        //member variables
-        //////////////////
+        #region private member variables
 
         //position of unit in group
-        int id;
+        private int id;
 
         //faction the unit belongs to
-        string side;
+        private string side;
 
         //in engine unit name
-        string vehicleName;
+        private string vehicleName;
 
         //makes unit playable
-        const string player = "player=PLAY CDG";
+        private const string player = "player=PLAY CDG";
 
-        //name of the unit seen when sloting
-        string unitName;
+        //name of the unit seen when slotting
+        private string unitName;
 
         //skill of the unit
-        double skill;
+        private double skill;
 
         //rank of the unit
-        int rank;
-        
+        private int rank;
+
         //determines if the unit is the leader of its group
-        bool leader;
+        private bool leader;
 
         //determines if the unit gets a map marker
-        bool tagedUnit;
+        private bool tagedUnit;
 
         //string of the units map marker
-        string tag;
+        private string tag;
 
+        /// <summary>
+        /// Return the default vehicle name depending on side.
+        /// Default to Blue if no side.
+        /// </summary>
+        private string DefaultVehicleName
+        {
+            get
+            {
+                switch (side)
+                {
+                    case "WEST":
+                        return "B_Soldier_F";
+                    case "GUER":
+                        return "I_Soldier_F";
+                    case "EAST":
+                        return "O_Soldier_F";
+                    case "CIV":
+                        return "C_man_1";
+                    default:
+                        return "B_Soldier_F";
+                }
+            }
+        }
+       
+        #endregion
 
     }
 }
