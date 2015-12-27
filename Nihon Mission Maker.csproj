@@ -77,6 +77,7 @@
     <Compile Include="LoadoutEditor.xaml.cs">
       <DependentUpon>LoadoutEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sides.CS" />
     <Compile Include="Validation.cs" />
     <Compile Include="UnitViewerPage.xaml.cs">
       <DependentUpon>UnitViewerPage.xaml</DependentUpon>
