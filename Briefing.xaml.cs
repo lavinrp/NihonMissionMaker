@@ -43,7 +43,6 @@ namespace Nihon_Mission_Maker
         private string civBriefingFilePath;
 
         //regexs for briefing segments
-        private string creditsRegexExpression = "(?<=_cre = player createDiaryRecord \\[\"diary\", \\[\"Credits\",\"(\\r\\n|\\n)<br/>)(.*?)(?=<br/><br/>(\\r\\n|\\n)Made with F3)";
         private string administrationRegexExpression = "(?<=_adm = player createDiaryRecord \\[\"diary\", \\[\"Administration\",\"(\\r\\n|\\n)<br/>)(.*?)(?=\"\\]\\];)";
         private string missionRegexExpression = "(?<=_mis = player createDiaryRecord \\[\"diary\", \\[\"Mission\",\"(\\r\\n|\\n)<br/>)(.*?)(?=\"\\]\\])";
         private string situationRegexExpression = "(?<=_sit = player createDiaryRecord \\[\"diary\", \\[\"Situation\",\"(\\r\\n|\\n)<br/>(\\r\\n|\\n))(.*?)(?=<br/><br/>(\\r\\n|\\n)ENEMY FORCES)";
@@ -168,7 +167,6 @@ namespace Nihon_Mission_Maker
             {
                 //make changes to string for selected factions briefing and overwrite faction briefing file with content of string
                 case "Blufor":
-                    ChangeCredits(ref bluBriefing);
                     ChangeAdmin(ref bluBriefing);
                     ChangeMission(ref bluBriefing);
                     ChangeSituation(ref bluBriefing);
@@ -176,7 +174,6 @@ namespace Nihon_Mission_Maker
                     SaveFactionBriefing(ref bluBriefing, bluBriefingFilePath);
                     break;
                 case "Opfor":
-                    ChangeCredits(ref redBriefing);
                     ChangeAdmin(ref redBriefing);
                     ChangeMission(ref redBriefing);
                     ChangeSituation(ref redBriefing);
@@ -184,7 +181,6 @@ namespace Nihon_Mission_Maker
                     SaveFactionBriefing(ref redBriefing, redBriefingFilePath);
                     break;
                 case "Indfor":
-                    ChangeCredits(ref indBriefing);
                     ChangeAdmin(ref indBriefing);
                     ChangeMission(ref indBriefing);
                     ChangeSituation(ref indBriefing);
@@ -192,7 +188,6 @@ namespace Nihon_Mission_Maker
                     SaveFactionBriefing(ref indBriefing, indBriefingFilePath);
                     break;
                 case "Civ":
-                    ChangeCredits(ref civBriefing);
                     ChangeAdmin(ref civBriefing);
                     ChangeMission(ref civBriefing);
                     ChangeSituation(ref civBriefing);
@@ -208,15 +203,6 @@ namespace Nihon_Mission_Maker
         #endregion
 
         #region change text fields
-        /// <summary>
-        /// replace whats in the credits section of the briefing with whats in the credits text box
-        /// </summary>
-        /// <param name="briefing"></param>
-        private void ChangeCredits(ref string briefing)
-        {
-            Regex creditsRgx = new Regex(creditsRegexExpression, RegexOptions.Singleline);
-            briefing = creditsRgx.Replace(briefing, creditsTextBox.Text);
-        }
 
         /// <summary>
         /// replace whats in the administration section of the briefing with whats in the administration text box
@@ -278,28 +264,24 @@ namespace Nihon_Mission_Maker
             switch (selectionString)
             {
                 case "Blufor":
-                    DisplayCredits(ref bluBriefing);
                     DisplayAdmin(ref bluBriefing);
                     DisplayMission(ref bluBriefing);
                     DisplaySituation(ref bluBriefing);
                     DisplayEnemyForces(ref bluBriefing);
                     break;
                 case "Opfor":
-                    DisplayCredits(ref redBriefing);
                     DisplayAdmin(ref redBriefing);
                     DisplayMission(ref redBriefing);
                     DisplaySituation(ref redBriefing);
                     DisplayEnemyForces(ref redBriefing);
                     break;
                 case "Indfor":
-                    DisplayCredits(ref indBriefing);
                     DisplayAdmin(ref indBriefing);
                     DisplayMission(ref indBriefing);
                     DisplaySituation(ref indBriefing);
                     DisplayEnemyForces(ref indBriefing);
                     break;
                 case "Civ":
-                    DisplayCredits(ref civBriefing);
                     DisplayAdmin(ref civBriefing);
                     DisplayMission(ref civBriefing);
                     DisplaySituation(ref civBriefing);
@@ -315,17 +297,6 @@ namespace Nihon_Mission_Maker
             {
                 briefingSaveButton.Background = normalColor;
             }
-        }
-
-        /// <summary>
-        /// Detects change in the credits text box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void creditsTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //Notify the briefing that the element has been changed
-            ElementChanged();
         }
 
         /// <summary>
@@ -391,21 +362,6 @@ namespace Nihon_Mission_Maker
         #endregion
 
         #region display text fields
-        /// <summary>
-        /// Fills the credits box with the credits from the given factions briefing
-        /// </summary>
-        /// <param name="briefing">faction specific briefing string</param>
-        private void DisplayCredits(ref string briefing)
-        {
-            //read in all the matches for credits (should only be one)
-            var credits = Regex.Matches(briefing, creditsRegexExpression, RegexOptions.Singleline);
-
-            //write last match to GUI
-            foreach (Match creditsMatch in credits)
-            {
-                creditsTextBox.Text = creditsMatch.ToString();
-            }
-        }
 
         /// <summary>
         /// fills the administration box with the administration information from the given factions briefing
