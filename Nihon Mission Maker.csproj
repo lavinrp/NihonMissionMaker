@@ -74,9 +74,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Group.cs" />
     <Compile Include="LoadoutEditor.xaml.cs">
       <DependentUpon>LoadoutEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Unit.cs" />
     <Compile Include="Validation.cs" />
     <Compile Include="UnitViewerPage.xaml.cs">
       <DependentUpon>UnitViewerPage.xaml</DependentUpon>
