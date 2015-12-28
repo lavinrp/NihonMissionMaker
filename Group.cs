@@ -125,7 +125,6 @@ namespace GroupMakerNoGui
 
         #region private member variables
         private string side;
-        private int unitCount;
         private string tag;
         private List<Unit> units;
         #endregion
