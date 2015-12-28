@@ -37,7 +37,9 @@
             </Grid.ColumnDefinitions>
 
             <!--Choose Side for Briefing-->
-            <TextBlock Grid.Row="0" Grid.Column="0" Background="Gray" Foreground="black" FontSize="25" Width="70" HorizontalAlignment="Left" Margin="0, 5, 0, 0">Side</TextBlock>
+            <Viewbox HorizontalAlignment="Left" Margin="0, 5, 0, 0">
+                <TextBlock Grid.Row="0" Grid.Column="0" Background="Gray" Foreground="black" FontSize="25" >Side</TextBlock>
+            </Viewbox>
             <ComboBox Grid.Column="0" Grid.Row="1" x:Name="SideSelectionBox" SelectionChanged="SideSelectionBox_SelectionChanged">
                 <ComboBoxItem x:Name="briefSideBlue">Blufor</ComboBoxItem>
                 <ComboBoxItem x:Name="briefSideInd">Indfor</ComboBoxItem>
@@ -73,9 +75,15 @@
             </Grid>
 
             <!--Groups ScrollViewer-->
-            <ScrollViewer Grid.Row="1" BorderBrush="Gray" Margin="25">
+            <ScrollViewer Grid.Row="1" BorderBrush="Gray" Margin="25" CanContentScroll="True">
                 <!--Internal Grid fro ScrollViewer-->
-                <Grid Name="GroupGrid"/>
+                <Grid Name="GroupGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                    
             </ScrollViewer>
 
             <!--New Group Button-->

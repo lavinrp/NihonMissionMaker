@@ -23,6 +23,8 @@ namespace Nihon_Mission_Maker
         public UnitViewerPage()
         {
             InitializeComponent();
+
+            guiGroupList = new List<GroupGUI>();
         }
 
         private void SideSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,7 +41,18 @@ namespace Nihon_Mission_Maker
         private void NewGroupButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO: make sure no more than 144 groups can be created per side
-            throw new NotFiniteNumberException();
+            //Create new group element 
+            GroupGUI newGroup = new GroupGUI();
+
+            
+            //Add group element to the bottom of the grid
+            RowDefinition rd = new RowDefinition();
+            GroupGrid.RowDefinitions.Add(new RowDefinition());
+            int gridRow = GroupGrid.RowDefinitions.Count() - 1;
+            GroupGrid.Children.Add(newGroup);
+            newGroup.SetValue(Grid.RowProperty, gridRow);
         }
+
+        private List<GroupGUI> guiGroupList;
     }
 }

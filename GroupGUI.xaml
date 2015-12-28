@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Nihon_Mission_Maker"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             >
+    <!--d:DesignHeight="300" d:DesignWidth="300"-->
 
     <UserControl.Resources>
         <Style x:Key="GroupElementLable" TargetType="TextBlock">
@@ -27,7 +28,7 @@
     
     
     <Grid>
-        <Expander Header="{Binding ElementName=GroupNameTextBox.Text}" Foreground="White" IsExpanded="True">
+        <Expander Header="{Binding ElementName=groupNameTextBox, Path=Text}" Foreground="White" IsExpanded="False">
             <Grid>
                 <!--Grid Rows-->
                 <Grid.RowDefinitions>
@@ -46,12 +47,10 @@
                     </Grid.RowDefinitions>
                     
                     <!--Label-->
-                    <Viewbox Style="{StaticResource GroupElementLableViewBox}">
-                        <TextBlock Style="{StaticResource GroupElementLable}">
-                            GroupName
-                        </TextBlock>
-                    </Viewbox>
-                    
+                    <TextBlock Style="{StaticResource GroupElementLable}">
+                        GroupName
+                    </TextBlock>
+
                     <!--TextBox-->
                     <TextBox Grid.Row="1" x:Name="groupNameTextBox" Style="{StaticResource GroupElementTextBox}">
                         Example Group Name
@@ -69,11 +68,9 @@
                     <RadioButton x:Name="allowMarkerRadioButton" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True"/>
                     
                     <!--Label-->
-                    <Viewbox Grid.Column="1" Style="{StaticResource GroupElementLableViewBox}">
-                        <TextBlock Background="Gray" Foreground="Black" VerticalAlignment="Center" Margin="0,0,0,5">
+                        <TextBlock Grid.Column="1" Background="Gray" Foreground="Black" VerticalAlignment="Center" Margin="0,0,0,5">
                             Allow Marker
                         </TextBlock>
-                    </Viewbox>
 
                 </Grid>
                 
@@ -84,12 +81,10 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <!--Label-->
-                    <Viewbox Style="{StaticResource GroupElementLableViewBox}">
-                        <TextBlock Style="{StaticResource GroupElementLable}">
-                            Group Marker Text
-                        </TextBlock>
-                    </Viewbox>
-                    
+                    <TextBlock Style="{StaticResource GroupElementLable}">
+                        Group Marker Text
+                    </TextBlock>
+
                     <!--Text Box-->
                     <TextBox Grid.Row="1" x:Name="groupMarkerTextBox" Style="{StaticResource GroupElementTextBox}">
                         EX1
@@ -105,26 +100,22 @@
                     </Grid.RowDefinitions>
 
                     <!--Label-->
-                    <Viewbox Style="{StaticResource GroupElementLableViewBox}">
-                        <TextBlock Style="{StaticResource GroupElementLable}">
-                            Unit List
-                        </TextBlock>
-                    </Viewbox>
+                    <TextBlock Style="{StaticResource GroupElementLable}">
+                        Unit List
+                    </TextBlock>
                     
                     <!--ScrollVieer containing unit list-->
-                    <ScrollViewer Grid.Row="1">
+                    <ScrollViewer Grid.Row="1" Height="300" CanContentScroll="True">
                         <Grid>
-                            
+
                         </Grid>
                     </ScrollViewer>
                     
                     <!--New Unit Button-->
                     <Button Grid.Row="3" x:Name="addUnitButton" HorizontalAlignment="Left" Margin="2">
-                        <Viewbox>
-                            <TextBlock>
-                                Add Unit
-                            </TextBlock>
-                        </Viewbox>
+                        <TextBlock>
+                            Add Unit
+                        </TextBlock>
                     </Button>
                 </Grid>
 
