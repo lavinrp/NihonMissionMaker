@@ -24,7 +24,17 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
 
-            guiGroupList = new List<GroupGUI>();
+            //Initialize lists to store GroupGUIs 
+            activeGuiGroupList = new List<GroupGUI>();
+            blueGuiGroupList = new List<GroupGUI>();
+            indGuiGroupList = new List<GroupGUI>();
+            opfGuiGroupList = new List<GroupGUI>();
+            civGuiGroupList = new List<GroupGUI>();
+        }
+
+        public void LoadGroups()
+        {
+
         }
 
         private void SideSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,15 +54,20 @@ namespace Nihon_Mission_Maker
             //Create new group element 
             GroupGUI newGroup = new GroupGUI();
 
+            //Add the group to the active groupList
+            activeGuiGroupList.Add(newGroup);
             
             //Add group element to the bottom of the grid
-            RowDefinition rd = new RowDefinition();
             GroupGrid.RowDefinitions.Add(new RowDefinition());
             int gridRow = GroupGrid.RowDefinitions.Count() - 1;
             GroupGrid.Children.Add(newGroup);
             newGroup.SetValue(Grid.RowProperty, gridRow);
         }
 
-        private List<GroupGUI> guiGroupList;
+        private List<GroupGUI> activeGuiGroupList;
+        private List<GroupGUI> blueGuiGroupList;
+        private List<GroupGUI> indGuiGroupList;
+        private List<GroupGUI> opfGuiGroupList;
+        private List<GroupGUI> civGuiGroupList;
     }
 }
