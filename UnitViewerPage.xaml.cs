@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Nihon_Mission_Maker
 {
@@ -20,9 +22,17 @@ namespace Nihon_Mission_Maker
     /// </summary>
     public partial class UnitViewerPage : Page
     {
-        public UnitViewerPage()
+        /// <summary>
+        /// Regular expression for finding the contents of the Groups class within the mission.sqm
+        /// </summary>
+        private const string GroupsRegexExpression = @"(?<=class Groups\n\t\{)(.*?)(?=(\};\n\};\nclass))";
+
+        public UnitViewerPage(string bwmfFilePath)
         {
             InitializeComponent();
+
+            //File Path
+            missionFilePath = bwmfFilePath + "\\mission.sqm";
 
             //Initialize lists to store GroupGUIs 
             activeGuiGroupList = new List<GroupGUI>();
@@ -30,6 +40,11 @@ namespace Nihon_Mission_Maker
             indGuiGroupList = new List<GroupGUI>();
             opfGuiGroupList = new List<GroupGUI>();
             civGuiGroupList = new List<GroupGUI>();
+
+            //store mission.sqf
+            ReadMissionFile();
+
+            GetUnitsSubString();
         }
 
 
@@ -133,11 +148,74 @@ namespace Nihon_Mission_Maker
         }
         #endregion
 
+
+        #region Importing
+
+        private void ReadMissionFile()
+        {
+            //set default value for the mission file
+            missionTxt = "";
+
+            //read in the mission file and save it as a string
+            try
+            {
+                if (File.Exists(missionFilePath))
+                {
+                    using (StreamReader sr = new StreamReader(missionFilePath))
+                    {
+                        missionTxt = sr.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    throw new System.IO.IOException("Mission file not found.");
+                }
+            }
+
+            catch
+            {
+                //Display error
+                MessageBox.Show("Error reading mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+        }
+
+        private void ImportGroupsFromMission()
+        {
+
+        }
+
+        /// <summary>
+        /// Returns substring of the mission file containing all the groups and their units
+        /// </summary>
+        /// <returns>String: substring of mission file containing the groups and their units.</returns>
+        private string GetUnitsSubString()
+        {
+            try
+            {
+                var groupTxtMatches = Regex.Matches(missionTxt, GroupsRegexExpression, RegexOptions.Singleline);
+                string groupTxt = groupTxtMatches[0].ToString();
+
+                return groupTxt;
+            }
+            catch
+            {
+                MessageBox.Show("Error finding groups in mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return "";
+            }
+        }
+
+        #endregion
+
         //Lists of GuiGroups
         private List<GroupGUI> activeGuiGroupList;
         private List<GroupGUI> blueGuiGroupList;
         private List<GroupGUI> indGuiGroupList;
         private List<GroupGUI> opfGuiGroupList;
         private List<GroupGUI> civGuiGroupList;
+
+        private string missionTxt;
+
+        private string missionFilePath;
     }
 }

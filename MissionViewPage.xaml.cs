@@ -77,9 +77,9 @@ namespace Nihon_Mission_Maker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CustomisePlayerUnitsButton_Click(object sender, RoutedEventArgs e) //TODO: make this page do something
+        private void CustomisePlayerUnitsButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new UnitViewerPage());
+            NavigationService.Navigate(new UnitViewerPage(bwmfFilePath));
         }
 
         /// <summary>
