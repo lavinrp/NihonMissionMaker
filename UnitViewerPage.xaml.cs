@@ -190,6 +190,10 @@ namespace Nihon_Mission_Maker
             List<string> groupStrings = GetIndivisualGroupStrings(groupString);
 
             //TODO: create groups and store them in the correct list for their faction
+            foreach (string groupInfo in groupStrings)
+            {
+                GroupGUI newGroup = new GroupGUI(groupInfo);
+            }
 
         }
 
@@ -220,7 +224,8 @@ namespace Nihon_Mission_Maker
         /// <summary>
         /// Returns substring of the mission file containing all the groups and their units
         /// </summary>
-        /// <returns>String: substring of mission file containing the groups and their units.</returns>
+        /// <returns>String: substring of mission file containing the groups and their units.
+        ///  Does not contain the "class Groups" or the curly braces of the groups class</returns>
         private string GetGroupSubString()
         {
             try
