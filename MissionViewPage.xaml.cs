@@ -135,24 +135,6 @@ namespace Nihon_Mission_Maker
             //set the combo box to the index of the given extension
             mapNameComboBox.SelectedIndex = mapsToDisplay.extensions.IndexOf(extension);
 
-            //TODO: read the map name and extension from
-            //set map based on extension or to BWMF if its empty
-            /*switch (extension)
-            {
-                
-                case "anim_helvantis_v2":
-                    mapNameComboBox.SelectedItem = HelvantisMap;
-                    break;
-                case "Altis":
-                    mapNameComboBox.SelectedItem = altisMap;
-                    break;
-                case "Stratis":
-                    mapNameComboBox.SelectedItem = stratisMap;
-                    break;
-                default:
-                    mapNameComboBox.SelectedItem = bwmfTemplate;
-                    break;
-            }*/
         }
 
         /// <summary>

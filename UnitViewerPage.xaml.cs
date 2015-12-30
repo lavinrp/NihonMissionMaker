@@ -44,7 +44,7 @@ namespace Nihon_Mission_Maker
             //store mission.sqf
             ReadMissionFile();
 
-            GetUnitsSubString();
+
         }
 
 
@@ -148,9 +148,11 @@ namespace Nihon_Mission_Maker
         }
         #endregion
 
-
         #region Importing
 
+        /// <summary>
+        /// Read in the mission file and save it as a string
+        /// </summary>
         private void ReadMissionFile()
         {
             //set default value for the mission file
@@ -172,27 +174,59 @@ namespace Nihon_Mission_Maker
                 }
             }
 
+            //Display error if saving mission file to string fails for any reason
             catch
             {
-                //Display error
                 MessageBox.Show("Error reading mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
         }
 
+        //TODO: fill stub
         private void ImportGroupsFromMission()
         {
+            //Find the group substring and split it into individual strings for each group
+            string groupString = GetGroupSubString();
+            List<string> groupStrings = GetIndivisualGroupStrings(groupString);
 
+            //TODO: create groups and store them in the correct list for their faction
+
+        }
+
+        /// <summary>
+        /// Separates the groups from the contents of the passed text from the Group class of the mission.sqm
+        /// returns a list of strings containing the contents of each individual group.
+        /// </summary>
+        /// <param name="GroupsSubString"></param>
+        /// <returns></returns>
+        private List<string> GetIndivisualGroupStrings(string GroupsSubString)
+        {
+            //Initialize return list
+            List<string> groupStrings = new List<string>();
+
+            //String containing the regular expression for finding each individual group class
+            const string individualGroupRegexExpression = @"(class Item\d*)(.*?)(\n\t\t\};)";
+
+            //find all matches and place them in list of string to return
+            var groups = Regex.Matches(GroupsSubString, individualGroupRegexExpression, RegexOptions.Singleline);
+            foreach (var match in groups)
+            {
+                groupStrings.Add(match.ToString());
+            }
+
+            return groupStrings;
         }
 
         /// <summary>
         /// Returns substring of the mission file containing all the groups and their units
         /// </summary>
         /// <returns>String: substring of mission file containing the groups and their units.</returns>
-        private string GetUnitsSubString()
+        private string GetGroupSubString()
         {
             try
             {
+                //find and return the first match to the GroupsRegexExpression.
+                //If more than one match is found only the first is valid
                 var groupTxtMatches = Regex.Matches(missionTxt, GroupsRegexExpression, RegexOptions.Singleline);
                 string groupTxt = groupTxtMatches[0].ToString();
 
