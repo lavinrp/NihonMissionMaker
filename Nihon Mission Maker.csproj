@@ -74,15 +74,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Group.cs" />
     <Compile Include="GroupGUI.xaml.cs">
       <DependentUpon>GroupGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoadoutEditor.xaml.cs">
       <DependentUpon>LoadoutEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Unit.cs" />
     <Compile Include="Sides.CS" />
+    <Compile Include="Unit.xaml.cs">
+      <DependentUpon>Unit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validation.cs" />
     <Compile Include="UnitViewerPage.xaml.cs">
       <DependentUpon>UnitViewerPage.xaml</DependentUpon>
@@ -133,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewMissonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Unit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

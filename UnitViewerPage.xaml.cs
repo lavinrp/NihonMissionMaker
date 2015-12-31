@@ -200,9 +200,10 @@ namespace Nihon_Mission_Maker
         /// <summary>
         /// Separates the groups from the contents of the passed text from the Group class of the mission.sqm
         /// returns a list of strings containing the contents of each individual group.
+        /// Includes the "Class Item" and curly braces.
         /// </summary>
         /// <param name="GroupsSubString"></param>
-        /// <returns></returns>
+        /// <returns>List<string>: A list of all individual group classes from the mission.sqm. Includes the "Class item" and curly braces.</returns>
         private List<string> GetIndivisualGroupStrings(string GroupsSubString)
         {
             //Initialize return list

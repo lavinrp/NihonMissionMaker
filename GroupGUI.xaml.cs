@@ -30,48 +30,41 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
 
-            SetMembersFromString(ref groupContents);
+            side = GetSideFromString(ref groupContents);
+            string unitsSubstring = GetUnitsSubString(ref groupContents);
+
+            List<string> unitStrings = GetIndivisualUnitStrings(ref unitsSubstring);
 
             //TODO: create units from string here
         }
 
-        #region private methods
+        #region Importing
 
         /// <summary>
-        /// Uses information in the passed string to set the groups side and create
-        /// and store the groups units
+        /// returns the Sides enum value that corresponds to the side stored in the passed string
+        /// The string must be correctly formated.
         /// </summary>
-        /// <param name="groupContents">String containing the entire group class from the mission.sqm
+        /// <param name="groupContents">Formated string containing the side of the group
         /// Example:
         /// class Item1
-	    /// {
-	    ///     side="EAST";
-	    ///     class Vehicles
+        /// {
+        ///     side="EAST";
+        ///     class Vehicles
         ///     {
         ///         items=1;
-	    /// 	    class Item0
+        ///         class Item0
         ///         {
         ///             position[]={1.4001919,5,-0.013671875};
-	    /// 		    id=2;
-	    /// 		    side="EAST";
-	    /// 		    vehicle="O_Soldier_F";
-	    /// 		    leader=1;
-	    /// 		    skill=0.60000002;
-	    /// 	    };
+        ///             id=2;
+        ///             side="EAST";
+        ///             vehicle="O_Soldier_F";
+        ///             leader=1;
+        ///             skill=0.60000002;
+        ///         };
         ///     };
         /// };
         /// 
         /// </param>
-        private void SetMembersFromString(ref string groupContents)
-        {
-            side = GetSideFromString(ref groupContents);
-        }
-
-        /// <summary>
-        /// returns the Sides enum value that corresponds to the side stored in the passed string
-        /// The string must follow the same format as the string in SetMembersFromString
-        /// </summary>
-        /// <param name="groupContents">Formated string containing the side of the group</param>
         /// <returns></returns>
         private Sides GetSideFromString(ref string groupContents)
         {
@@ -111,7 +104,25 @@ namespace Nihon_Mission_Maker
         /// Does not include the "class Vehicles" or any of the curly braces for the class.
         /// </summary>
         /// <param name="groupContents">Formated string containing the side of the group. 
-        /// The string must follow the same format as the string in SetMembersFromString.
+        ///  Example:
+        /// class Item1
+        /// {
+        ///     side="EAST";
+        ///     class Vehicles
+        ///     {
+        ///         items=1;
+        ///         class Item0
+        ///         {
+        ///             position[]={1.4001919,5,-0.013671875};
+        ///             id=2;
+        ///             side="EAST";
+        ///             vehicle="O_Soldier_F";
+        ///             leader=1;
+        ///             skill=0.60000002;
+        ///         };
+        ///     };
+        /// };
+        /// 
         /// </param>
         /// <returns>String containing Units from mission.sqf</returns>
         private string GetUnitsSubString(ref string groupContents)
@@ -128,6 +139,29 @@ namespace Nihon_Mission_Maker
                 MessageBox.Show("Error finding vehicle substring in mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return "";
             }
+        }
+
+        /// <summary>
+        /// Separates each individual unit from the passed string and returns them as separate strings.
+        /// returned strings include the "class Item" and curly braces.
+        /// </summary>
+        /// <param name="unitsSubstring"></param>
+        /// <returns></returns>
+        private List<string> GetIndivisualUnitStrings(ref string unitsSubstring)
+        {
+            //initialize return value and regex
+            List<string> unitStrings = new List<string>();
+            const string individualUnitRegexExpression = @"(class Item\d*)(.*?)(\n\t\t\t\t\};)";
+
+            //find all matches and add them to the return list
+            var unitMatches = Regex.Matches(unitsSubstring, individualUnitRegexExpression, RegexOptions.Singleline);
+            foreach (var match in unitMatches)
+            {
+                unitStrings.Add(match.ToString());
+            }
+
+            return unitStrings;
+
         }
 
         #endregion
