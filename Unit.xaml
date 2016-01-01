@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Nihon_Mission_Maker"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="150">
+             >
+            <!--d:DesignHeight="300" d:DesignWidth="150"-->
 
     <UserControl.Resources>
         <Style x:Key="UnitElementLabel" TargetType="TextBlock">
@@ -34,7 +35,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <Expander Header="{Binding ElementName=unitDisplayNameTextBox, Path=Text}" Foreground="White" IsExpanded="True">
+        <Expander Header="{Binding ElementName=unitDisplayNameTextBox, Path=Text}" Foreground="White" IsExpanded="False">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

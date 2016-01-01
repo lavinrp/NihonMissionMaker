@@ -69,7 +69,7 @@ namespace Nihon_Mission_Maker
         private Sides GetSideFromString(ref string groupContents)
         {
             //regular expression for finding the side of the group
-            const string sideRegexExpression = "(?<=side=\")(.*?)(?= \";)";
+            const string sideRegexExpression = "(?<=side=\")(.*?)(?=\")";
 
             try
             {
@@ -85,6 +85,8 @@ namespace Nihon_Mission_Maker
                         return Sides.IND;
                     case "CIV":
                         return Sides.CIV;
+                    case "LOGIC":
+                        return Sides.LOGIC;
                     default:
                         MessageBox.Show("Error side: " + sideMatches[0].ToString() + " is not a valid side. Defaulting to BLUF.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return Sides.BLUF;

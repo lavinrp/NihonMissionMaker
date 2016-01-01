@@ -43,7 +43,7 @@ namespace Nihon_Mission_Maker
 
             //store mission.sqf
             ReadMissionFile();
-
+            ImportGroupsFromMission();
 
         }
 
