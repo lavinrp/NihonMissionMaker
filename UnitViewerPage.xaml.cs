@@ -53,7 +53,6 @@ namespace Nihon_Mission_Maker
 
         }
 
-
         #region Change displayed groups
         /// <summary>
         /// Sets the activeGuiGroupList to the given faction, clears the displayed groupGUIs,

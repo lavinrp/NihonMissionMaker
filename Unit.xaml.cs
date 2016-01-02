@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Nihon_Mission_Maker
 {
@@ -28,6 +29,26 @@ namespace Nihon_Mission_Maker
         public Unit(string unitString)
         {
             InitializeComponent();
+            ImportDisplayName(ref unitString);
+        }
+
+        /// <summary>
+        /// Takes the unit description from the mission.sqm and 
+        /// </summary>
+        /// <param name="unitString"></param>
+        public void ImportDisplayName(ref string unitString)
+        {
+            try
+            {
+                //Expression for finding the display name
+                const string displayNameRegexExpression = "(?<=description=\")(.*)(?=\")";
+                var matches = Regex.Matches(unitString, displayNameRegexExpression, RegexOptions.Singleline);
+                unitDisplayNameTextBox.Text = matches[0].ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Error reading display name of unit", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }
