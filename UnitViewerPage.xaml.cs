@@ -25,7 +25,7 @@ namespace Nihon_Mission_Maker
         /// <summary>
         /// Regular expression for finding the contents of the Groups class within the mission.sqm
         /// </summary>
-        private const string GroupsRegexExpression = @"(?<=class Groups\n\t\{)(.*?)(?=(\};\n\};\nclass))";
+        private const string GroupsRegexExpression = @"(?<=class Groups\n\t\{)(.*?)(=?\n\t\};)";
 
         public UnitViewerPage(string bwmfFilePath)
         {
@@ -210,7 +210,7 @@ namespace Nihon_Mission_Maker
             List<string> groupStrings = new List<string>();
 
             //String containing the regular expression for finding each individual group class
-            const string individualGroupRegexExpression = @"(class Item\d*)(.*?)(\n\t\t\};)";
+            const string individualGroupRegexExpression = @"(\n\t\tclass Item\d*)(.*?)(\n\t\t\};)";
 
             //find all matches and place them in list of string to return
             var groups = Regex.Matches(GroupsSubString, individualGroupRegexExpression, RegexOptions.Singleline);

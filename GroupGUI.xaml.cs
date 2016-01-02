@@ -87,6 +87,8 @@ namespace Nihon_Mission_Maker
                         return Sides.CIV;
                     case "LOGIC":
                         return Sides.LOGIC;
+                    case "EMPTY":
+                        return Sides.EMPTY;
                     default:
                         MessageBox.Show("Error side: " + sideMatches[0].ToString() + " is not a valid side. Defaulting to BLUF.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return Sides.BLUF;
