@@ -40,6 +40,7 @@ namespace Nihon_Mission_Maker
             indGuiGroupList = new List<GroupGUI>();
             opfGuiGroupList = new List<GroupGUI>();
             civGuiGroupList = new List<GroupGUI>();
+            logicGuiGroupList = new List<GroupGUI>();
 
             //store mission.sqf
             ReadMissionFile();
@@ -193,6 +194,29 @@ namespace Nihon_Mission_Maker
             foreach (string groupInfo in groupStrings)
             {
                 GroupGUI newGroup = new GroupGUI(groupInfo);
+
+                //place group in correct list (side)
+                switch (newGroup.side)
+                {
+                    case Sides.BLUF:
+                        blueGuiGroupList.Add(newGroup);
+                        break;
+                    case Sides.OPF:
+                        opfGuiGroupList.Add(newGroup);
+                        break;
+                    case Sides.IND:
+                        indGuiGroupList.Add(newGroup);
+                        break;
+                    case Sides.CIV:
+                        civGuiGroupList.Add(newGroup);
+                        break;
+                    case Sides.LOGIC:
+                        civGuiGroupList.Add(newGroup);
+                        break;
+                    default:
+                        MessageBox.Show("Error storing group. Invalid Side.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        break;
+                }
             }
 
         }
@@ -253,6 +277,7 @@ namespace Nihon_Mission_Maker
         private List<GroupGUI> indGuiGroupList;
         private List<GroupGUI> opfGuiGroupList;
         private List<GroupGUI> civGuiGroupList;
+        private List<GroupGUI> logicGuiGroupList;
 
         private string missionTxt;
 
