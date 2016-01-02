@@ -27,6 +27,11 @@ namespace Nihon_Mission_Maker
         /// </summary>
         private const string GroupsRegexExpression = @"(?<=class Groups\n\t\{)(.*?)(=?\n\t\};)";
 
+        /// <summary>
+        /// Constructor for UnitViewerPage
+        /// Creates the UnitViewerPage and loads all the groups and units from the mission.sqm file
+        /// </summary>
+        /// <param name="bwmfFilePath"></param>
         public UnitViewerPage(string bwmfFilePath)
         {
             InitializeComponent();
@@ -183,14 +188,15 @@ namespace Nihon_Mission_Maker
 
         }
 
-        //TODO: fill stub
+        /// <summary>
+        /// Creates groups based on their strings in the mission.sqm and stores them in the correct list of groups
+        /// </summary>
         private void ImportGroupsFromMission()
         {
             //Find the group substring and split it into individual strings for each group
             string groupString = GetGroupSubString();
             List<string> groupStrings = GetIndivisualGroupStrings(groupString);
 
-            //TODO: create groups and store them in the correct list for their faction
             foreach (string groupInfo in groupStrings)
             {
                 GroupGUI newGroup = new GroupGUI(groupInfo);
@@ -211,6 +217,7 @@ namespace Nihon_Mission_Maker
                         civGuiGroupList.Add(newGroup);
                         break;
                     case Sides.LOGIC:
+                        //TODO: make sure logic groups are not lost
                         civGuiGroupList.Add(newGroup);
                         break;
                     default:

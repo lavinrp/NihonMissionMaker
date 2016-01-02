@@ -24,5 +24,10 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
         }
+
+        public Unit(string unitString)
+        {
+            InitializeComponent();
+        }
     }
 }

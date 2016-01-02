@@ -30,11 +30,19 @@ namespace Nihon_Mission_Maker
         {
             InitializeComponent();
 
+            //Initialize Group member variables
             side = GetSideFromString(ref groupContents);
             string unitsSubstring = GetUnitsSubString(ref groupContents);
+            units = new List<Unit>();
 
+            //create units
             List<string> unitStrings = GetIndivisualUnitStrings(ref unitsSubstring);
-
+            foreach (string unitString in unitStrings)
+            {
+                Unit newUnit = new Unit(unitString);
+                units.Add(newUnit);
+                DisplayUnit(newUnit);
+            }
             //TODO: create units from string here
         }
 
@@ -170,11 +178,27 @@ namespace Nihon_Mission_Maker
 
         #endregion
 
+        #region units
+
+        /// <summary>
+        /// Adds a unit to be displayed in the groups units scroll viewer
+        /// </summary>
+        /// <param name="unit">Unit to add to the groups scroll viewer.</param>
+        private void DisplayUnit(Unit unit)
+        {
+            //Add unit element to the bottom of the grid
+            unitGrid.RowDefinitions.Add(new RowDefinition());
+            int gridRow = unitGrid.RowDefinitions.Count() - 1;
+            unitGrid.Children.Add(unit);
+            unit.SetValue(Grid.RowProperty, gridRow);
+        }
+        #endregion
+
 
         #region public Member variables
         public string name;
         public Sides side;
-        //TODO: Add list of units
+        public List<Unit> units;
         #endregion
     }
 }
