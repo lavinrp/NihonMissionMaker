@@ -99,7 +99,13 @@
                         Rank
                     </TextBlock>
                     <ComboBox Grid.Row="1" x:Name="rankComboBox" Style="{StaticResource UnitElementComboBox}" >
-                        <ComboBoxItem x:Name="ExampleName" Background="LightGray">ExampleName</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankPrivate" Background="LightGray">Private</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankCorporal" Background="LightGray">Corporal</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankSergeant" Background="LightGray">Sergeant</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankLieutenant" Background="LightGray">Lieutenant</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankCaptain" Background="LightGray">Captain</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankMajor" Background="LightGray">Major</ComboBoxItem>
+                        <ComboBoxItem x:Name="rankColonel" Background="LightGray">Colonel</ComboBoxItem>
                         <!--TODO: add in Ranks-->
                     </ComboBox>
                     
@@ -115,16 +121,16 @@
                         Side
                     </TextBlock>
                     <ComboBox Grid.Row="1" x:Name="sideComboBox" Style="{StaticResource UnitElementComboBox}">
-                        <ComboBoxItem>
+                        <ComboBoxItem x:Name="sideBluefor">
                             Blufor
                         </ComboBoxItem>
-                        <ComboBoxItem>
+                        <ComboBoxItem x:Name="sideOpfor">
                             Opfor
                         </ComboBoxItem>
-                        <ComboBoxItem>
+                        <ComboBoxItem x:Name="sideIndfor">
                             Indfor
                         </ComboBoxItem>
-                        <ComboBoxItem>
+                        <ComboBoxItem x:Name="sideCiv">
                             Civ
                         </ComboBoxItem>
                     </ComboBox>
