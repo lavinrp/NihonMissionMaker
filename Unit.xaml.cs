@@ -29,119 +29,145 @@ namespace Nihon_Mission_Maker
         public Unit(string unitString)
         {
             InitializeComponent();
+            ImportFromSqm(ref unitString);
 
-            //DisplayName
-            unitDisplayNameTextBox.Text = ImportDisplayName(ref unitString);
-
-            //side
-            side = ImportSide(ref unitString);
-            UpdateGuiSide(side);
-
-            //vehicleName
-            vehicleNameTextBox.Text = ImportVehicleName(ref unitString);
-
-            //Rank
             
         }
 
-        #region Import from SQM
+
         /// <summary>
-        /// Imports the unit description from the mission.sqm
+        /// Finds parameters of a sqm unit using the passed regex pattern
         /// </summary>
         /// <param name="unitString">Formated string from mission.sqm containing the units properties</param>
-        /// <returns></returns>
-        private string ImportDisplayName(ref string unitString)
+        /// <param name="regexPattern">Regular expression pattern for finding the desired parameter</param>
+        /// <returns>String containing the parameter from the unit. Empty string if parameter was not found.</returns>
+        private string ImportUnitParam(ref string unitString, ref string regexPattern)
         {
-            //find display name
-            const string displayNameRegexExpression = "(?<=description=\")(.*)(?=\")";
-            var match = Regex.Match(unitString, displayNameRegexExpression, RegexOptions.Singleline);
-            string displayName = match.ToString();
+            //find parameter
+            var match = Regex.Match(unitString, regexPattern, RegexOptions.Singleline);
+            string paramValue = match.ToString();
 
-            //Return name or error
-            if (string.IsNullOrEmpty(displayName))
-            {
-                MessageBox.Show("Error reading display name of unit", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return "";
-            }
-            return displayName;
+            return paramValue;
         }
 
         /// <summary>
-        /// Imports the unit side from the mission.sqm
+        /// Imports all possible unit values from the mission.sqm text
         /// </summary>
-        /// <param name="unitString">Formated string from mission.sqm containing the units properties</param>
-        /// <returns>Side of the unit</returns>
-        private Sides ImportSide(ref string unitString)
+        /// <param name="unitString"></param>
+        private void ImportFromSqm(ref string unitString)
         {
-            //Find side
-            const string sideRegexExpression = "(?<=side=\")(.*?)(?=\")";
-            var match = Regex.Match(unitString, sideRegexExpression, RegexOptions.Singleline);
-            string sideString = match.ToString();
+            string displayNameRegexPattern = "(?<=description=\")(.*)(?=\")";
+            string sideRegexPattern = "(?<=side=\")(.*?)(?=\")";
+            string vehicleNameRegexPattern = "(?<=vehicle=\")(.*?)(?=\")";
+            string rankRegexPattern = "(?<=rank=\")(.*?)(?=\")";
+            string azimutRegexPattern = "(?<=azimut=)(.*?)(?=;)";
+            string playabilityRegexPattern = "(?<=player=\")(.*?)(?=\")";
+            string skillRegexPattern = "(?<=skill=)(.*?)(?=;)";
+            string variableRegexPattern = "(?<=text=\")(.*?)(?=\")";
+            string leaderRegexPattern = "(?<=leader=)(.*?)(?=;)";
 
-            switch (sideString)
+            //DisplayName
+            unitDisplayNameTextBox.Text = ImportUnitParam(ref unitString, ref displayNameRegexPattern);
+
+            //side
+            string side = ImportUnitParam(ref unitString, ref sideRegexPattern);
+            UpdateGuiSide(side);
+
+            //vehicleName
+            vehicleNameTextBox.Text = ImportUnitParam(ref unitString, ref vehicleNameRegexPattern);
+
+            //Rank
+            string rank = ImportUnitParam(ref unitString, ref rankRegexPattern);
+            UpdateGUIRank(ref rank);
+
+            //azimut
+            azimut = ImportUnitParam(ref unitString, ref azimutRegexPattern);
+
+            //playability
+            playability = ImportUnitParam(ref unitString, ref playabilityRegexPattern);
+
+            //skill
+            skill = ImportUnitParam(ref unitString, ref skillRegexPattern);
+
+            //variable name
+            unitVariableNameTextBox.Text = ImportUnitParam(ref unitString, ref variableRegexPattern);
+
+            //leader
+            string leaderString = ImportUnitParam(ref unitString, ref leaderRegexPattern);
+            if (leaderString == "1")
             {
-                case "WEST":
-                    return Sides.BLUF;
-                case "EAST":
-                    return Sides.OPF;
-                case "GUER":
-                    return Sides.IND;
-                case "CIV":
-                    return Sides.CIV;
-                case "LOGIC":
-                    return Sides.LOGIC;
-                default:
-                    MessageBox.Show("Could not import unit side", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    return Sides.EMPTY;
+                isLeader = true;
             }
-
+            else
+            {
+                isLeader = false;
+            }
         }
+
 
         /// <summary>
-        /// Imports the vehicle parameter from the mission.sqm
+        /// Sets the rank combo box to the value of the passed rank string
         /// </summary>
-        /// <param name="unitString">Formated string from mission.sqm containing the units properties.</param>
-        /// <returns>vehicle name found in the passed text.</returns>
-        private string ImportVehicleName(ref string unitString)
+        /// <param name="rank">Rank to display.</param>
+        private void UpdateGUIRank(ref string rank)
         {
-            //find vehicle name
-            const string vehicleNameRegexExpression = "(?<=vehicle=\")(.*?)(?=\")";
-            var match = Regex.Match(unitString, vehicleNameRegexExpression, RegexOptions.Singleline);
-            string vehicleName = match.ToString();
-
-            //Return vehicle name or error
-            if (string.IsNullOrEmpty(vehicleName))
+            //Assign ranks based off string
+            //Private
+            if (string.IsNullOrEmpty(rank))
             {
-                MessageBox.Show("Error finding unit vehicle name.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return "";
+                rankComboBox.SelectedItem = rankPrivate;
             }
-            return vehicleName;
+            else if (rank == "CORPORAL")
+            {
+                rankComboBox.SelectedItem = rankCorporal;
+            }
+            else if (rank == "SERGEANT")
+            {
+                rankComboBox.SelectedItem = rankSergeant;
+            }
+            else if (rank == "LIEUTENANT")
+            {
+                rankComboBox.SelectedItem = rankLieutenant;
+            }
+            else if (rank == "CAPTAIN")
+            {
+                rankComboBox.SelectedItem = rankCaptain;
+            }
+            else if (rank == "MAJOR")
+            {
+                rankComboBox.SelectedItem = rankMajor;
+            }
+            else if (rank == "COLONEL")
+            {
+                rankComboBox.SelectedItem = rankColonel;
+            }
+            else
+            {
+                MessageBox.Show("Invalid rank passed to unit.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //select no rank
+                rankComboBox.SelectedIndex = -1;
+            }
         }
 
-        private void ImportRank(ref string unitString)
-        {
-            //TODO: fill stub
-        }
-        #endregion
 
         /// <summary>
         /// Sets the selected side in the GUI to the passed side
         /// </summary>
         /// <param name="side">New side to display</param>
-        private void UpdateGuiSide(Sides side)
+        private void UpdateGuiSide(string side)
         {
             switch (side)
             {
-                case Sides.BLUF:
+                case "WEST":
                     sideComboBox.SelectedItem = sideBluefor;
                     break;
-                case Sides.IND:
+                case "GUER":
                     sideComboBox.SelectedItem = sideIndfor;
                     break;
-                case Sides.OPF:
+                case "EAST":
                     sideComboBox.SelectedItem = sideOpfor;
                     break;
-                case Sides.CIV:
+                case "CIV":
                     sideComboBox.SelectedItem = sideCiv;
                     break;
                 default:
@@ -152,7 +178,9 @@ namespace Nihon_Mission_Maker
         }
 
         //Member variables
-        public Sides side;
-        public bool player;
+        public string playability;
+        public string skill;
+        public string azimut;
+        public bool isLeader = false;
     }
 }
