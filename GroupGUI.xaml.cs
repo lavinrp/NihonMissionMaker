@@ -200,5 +200,16 @@ namespace Nihon_Mission_Maker
         public Sides side;
         public List<Unit> units;
         #endregion
+
+        /// <summary>
+        /// Creates and displays a new unit in this group.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addUnitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Unit newUnit = new Unit(side);
+            DisplayUnit(newUnit);
+        }
     }
 }

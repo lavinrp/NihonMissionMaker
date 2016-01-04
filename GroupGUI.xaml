@@ -112,7 +112,7 @@
                     </ScrollViewer>
                     
                     <!--New Unit Button-->
-                    <Button Grid.Row="3" x:Name="addUnitButton" HorizontalAlignment="Left" Margin="2">
+                    <Button Grid.Row="3" x:Name="addUnitButton" HorizontalAlignment="Left" Margin="2" Click="addUnitButton_Click">
                         <TextBlock>
                             Add Unit
                         </TextBlock>

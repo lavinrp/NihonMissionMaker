@@ -57,9 +57,10 @@ namespace Nihon_Mission_Maker
             positionYTextBox.Text = "0";
             positionZTextBox.Text = "0";
         }
+
         #endregion
 
-
+        #region import
         /// <summary>
         /// Finds parameters of a sqm unit using the passed regex pattern
         /// </summary>
@@ -141,8 +142,9 @@ namespace Nihon_Mission_Maker
                 positionZTextBox.Text = positionCoordinates[2];
             }
         }
+        #endregion
 
-
+        #region Update GUI
         /// <summary>
         /// Sets the rank combo box to the value of the passed rank string
         /// </summary>
@@ -186,7 +188,6 @@ namespace Nihon_Mission_Maker
                 rankComboBox.SelectedIndex = -1;
             }
         }
-
 
         /// <summary>
         /// Sets the selected side in the GUI to the passed side
@@ -241,6 +242,7 @@ namespace Nihon_Mission_Maker
                     break;
             }
         }
+        #endregion
 
         //Member variables
         public string playability;
