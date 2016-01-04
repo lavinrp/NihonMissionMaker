@@ -21,18 +21,43 @@ namespace Nihon_Mission_Maker
     /// </summary>
     public partial class Unit : UserControl
     {
+
+        #region constructors
         public Unit()
         {
             InitializeComponent();
+
+            playability = "PLAY CDG";
+            skill = "0.60000002";
+            azimut = "0.51626098";
+            string rank = "";
+            UpdateGUIRank(ref rank);
+            positionXTextBox.Text = "0";
+            positionYTextBox.Text = "0";
+            positionZTextBox.Text = "0";
         }
 
         public Unit(string unitString)
         {
             InitializeComponent();
             ImportFromSqm(ref unitString);
-
-            
         }
+
+        public Unit(Sides side)
+        {
+            InitializeComponent();
+
+            playability = "PLAY CDG";
+            skill = "0.60000002";
+            azimut = "0.51626098";
+            string rank = "";
+            UpdateGUIRank(ref rank);
+            UpdateGuiSide(side);
+            positionXTextBox.Text = "0";
+            positionYTextBox.Text = "0";
+            positionZTextBox.Text = "0";
+        }
+        #endregion
 
 
         /// <summary>
@@ -65,6 +90,8 @@ namespace Nihon_Mission_Maker
             string skillRegexPattern = "(?<=skill=)(.*?)(?=;)";
             string variableRegexPattern = "(?<=text=\")(.*?)(?=\")";
             string leaderRegexPattern = "(?<=leader=)(.*?)(?=;)";
+            string positionRegexPattern = "(?<=position\\[\\]=\\{)(.*?)(?=\\})";
+            
 
             //DisplayName
             unitDisplayNameTextBox.Text = ImportUnitParam(ref unitString, ref displayNameRegexPattern);
@@ -101,6 +128,17 @@ namespace Nihon_Mission_Maker
             else
             {
                 isLeader = false;
+            }
+
+            //position
+            string positionString = ImportUnitParam(ref unitString, ref positionRegexPattern);
+            const int positionDimensions = 3;
+            string[] positionCoordinates = positionString.Split(',');
+            if (positionCoordinates.Count() == positionDimensions)
+            {
+                positionXTextBox.Text = positionCoordinates[0];
+                positionYTextBox.Text = positionCoordinates[1];
+                positionZTextBox.Text = positionCoordinates[2];
             }
         }
 
@@ -168,6 +206,33 @@ namespace Nihon_Mission_Maker
                     sideComboBox.SelectedItem = sideOpfor;
                     break;
                 case "CIV":
+                    sideComboBox.SelectedItem = sideCiv;
+                    break;
+                default:
+                    //if no valid selection select nothing
+                    sideComboBox.SelectedIndex = -1;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Sets the selected side in the GUI to the passed side
+        /// </summary>
+        /// <param name="side">New side to display</param>
+        private void UpdateGuiSide(Sides side)
+        {
+            switch (side)
+            {
+                case Sides.BLUF:
+                    sideComboBox.SelectedItem = sideBluefor;
+                    break;
+                case Sides.IND:
+                    sideComboBox.SelectedItem = sideIndfor;
+                    break;
+                case Sides.OPF:
+                    sideComboBox.SelectedItem = sideOpfor;
+                    break;
+                case Sides.CIV:
                     sideComboBox.SelectedItem = sideCiv;
                     break;
                 default:
