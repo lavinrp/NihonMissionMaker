@@ -170,7 +170,10 @@ namespace Nihon_Mission_Maker
                 {
                     using (StreamReader sr = new StreamReader(missionFilePath))
                     {
-                        missionTxt = sr.ReadToEnd();
+                        string rawMissionTxt = sr.ReadToEnd();
+
+                        //standardize new lines in the mission text
+                        missionTxt = rawMissionTxt.Replace("\r\n", "\n");
                     }
                 }
                 else
