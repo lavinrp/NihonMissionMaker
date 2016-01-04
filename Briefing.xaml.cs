@@ -70,10 +70,10 @@ namespace Nihon_Mission_Maker
 
             //file paths to briefings
             briefingFolderFilePath = bwmfFilePath + "\\f\\briefing";
-            bluBriefingFilePath = briefingFolderFilePath + "\\f_briefing_nato.sqf";
-            indBriefingFilePath = briefingFolderFilePath + "\\f_briefing_aaf.sqf";
-            redBriefingFilePath = briefingFolderFilePath + "\\f_briefing_csat.sqf";
-            civBriefingFilePath = briefingFolderFilePath + "\\f_briefing_civ.sqf";
+            bluBriefingFilePath = briefingFolderFilePath + "\\briefing_west.sqf";
+            indBriefingFilePath = briefingFolderFilePath + "\\briefing_independent.sqf";
+            redBriefingFilePath = briefingFolderFilePath + "\\briefing_east.sqf";
+            civBriefingFilePath = briefingFolderFilePath + "\\briefing_civilian.sqf";
 
             //read in the briefings for each faction
             loadFactionBriefing(out bluBriefing, bluBriefingFilePath);
