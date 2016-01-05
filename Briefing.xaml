@@ -68,16 +68,24 @@
             
             <!--Administration-->
             <TextBlock Grid.Row="1" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="165">Administration</TextBlock>
-            <TextBox x:Name="administrationTextBox" Grid.Row="2" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="administrationTextBox_TextChanged"></TextBox>
+            <TextBox x:Name="administrationTextBox" Grid.Row="2" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="administrationTextBox_TextChanged"
+                     LostFocus="administrationTextBox_LostFocus">
+            </TextBox>
             <!--Mission-->
             <TextBlock Grid.Row="4" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="91">Mission</TextBlock>
-            <TextBox x:Name="missionTextBox" Grid.Row="5" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="missionTextBox_TextChanged"></TextBox>
+            <TextBox x:Name="missionTextBox" Grid.Row="5" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="missionTextBox_TextChanged"
+                     LostFocus="missionTextBox_LostFocus">
+            </TextBox>
             <!--Situation-->
             <TextBlock Grid.Row="7" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="100">Situation</TextBlock>
-            <TextBox x:Name="situationTextBox" Grid.Row="8" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="situationTextBox_TextChanged"></TextBox>
+            <TextBox x:Name="situationTextBox" Grid.Row="8" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="situationTextBox_TextChanged"
+                     LostFocus="situationTextBox_LostFocus">
+            </TextBox>
             <!--Enemy Forces-->
             <TextBlock Grid.Row="10" Background="Gray" Foreground="Black" FontSize="25" HorizontalAlignment="Left" Width="155">Enemy Forces</TextBlock>
-            <TextBox x:Name="enemyForcesTextBox" Grid.Row="11" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="enemyForcesTextBox_TextChanged"></TextBox>
+            <TextBox x:Name="enemyForcesTextBox" Grid.Row="11" Background="LightGray" Foreground="Black" AcceptsReturn="True" TextChanged="enemyForcesTextBox_TextChanged"
+                     LostFocus="enemyForcesTextBox_LostFocus">
+            </TextBox>
         </Grid>
         
         <!--Save button-->

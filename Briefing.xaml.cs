@@ -141,62 +141,20 @@ namespace Nihon_Mission_Maker
         }
 
         /// <summary>
-        ///make changes to string for selected factions briefing and overwrite faction briefing file with content of string
+        /// Overwrite faction briefing file with content of briefing strings.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void briefingSaveButton_Click(object sender, RoutedEventArgs e)
         {
-
-            //get selection
-            ComboBoxItem selection = (ComboBoxItem)(SideSelectionBox .SelectedValue);
-            string selectionString;
-
-            try
-            {
-                //convert selection to string
-                selectionString = (string)selection.Content;
-            }
-            catch
-            {
-                MessageBox.Show("Error saving briefing. Have you selected a faction?", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
-            }
-
-            switch (selectionString)
-            {
-                //make changes to string for selected factions briefing and overwrite faction briefing file with content of string
-                case "Blufor":
-                    ChangeAdmin(ref bluBriefing);
-                    ChangeMission(ref bluBriefing);
-                    ChangeSituation(ref bluBriefing);
-                    ChangeEnemyForces(ref bluBriefing);
-                    SaveFactionBriefing(ref bluBriefing, bluBriefingFilePath);
-                    break;
-                case "Opfor":
-                    ChangeAdmin(ref redBriefing);
-                    ChangeMission(ref redBriefing);
-                    ChangeSituation(ref redBriefing);
-                    ChangeEnemyForces(ref redBriefing);
-                    SaveFactionBriefing(ref redBriefing, redBriefingFilePath);
-                    break;
-                case "Indfor":
-                    ChangeAdmin(ref indBriefing);
-                    ChangeMission(ref indBriefing);
-                    ChangeSituation(ref indBriefing);
-                    ChangeEnemyForces(ref indBriefing);
-                    SaveFactionBriefing(ref indBriefing, indBriefingFilePath);
-                    break;
-                case "Civ":
-                    ChangeAdmin(ref civBriefing);
-                    ChangeMission(ref civBriefing);
-                    ChangeSituation(ref civBriefing);
-                    ChangeEnemyForces(ref civBriefing);
-                    SaveFactionBriefing(ref civBriefing, civBriefingFilePath);
-                    break;
-            }
+            //overwrite faction briefing file with content of stored briefing strings
+            SaveFactionBriefing(ref bluBriefing, bluBriefingFilePath);
+            SaveFactionBriefing(ref redBriefing, redBriefingFilePath);
+            SaveFactionBriefing(ref indBriefing, indBriefingFilePath);
+            SaveFactionBriefing(ref civBriefing, civBriefingFilePath);
 
             //reset color to gray to show that the briefing has been saved
+            saveableChangeMade = false;
             briefingSaveButton.Background = normalColor;
         }
 
@@ -251,37 +209,31 @@ namespace Nihon_Mission_Maker
         /// <param name="e"></param>
         private void SideSelectionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //temporary bool to store the current state of 
-            bool previousChangeMade = saveableChangeMade;
-            
-            //get selection
-            ComboBoxItem selection = (ComboBoxItem)((ComboBox)sender).SelectedValue;
-
-            //convert selection to string
-            string selectionString = (string)selection.Content;
+            //Store if a savable change has been made or not
+            bool storeChage = saveableChangeMade;
 
             //Display selected faction briefing
-            switch (selectionString)
+            switch (side)
             {
-                case "Blufor":
+                case Sides.BLUF:
                     DisplayAdmin(ref bluBriefing);
                     DisplayMission(ref bluBriefing);
                     DisplaySituation(ref bluBriefing);
                     DisplayEnemyForces(ref bluBriefing);
                     break;
-                case "Opfor":
+                case Sides.OPF:
                     DisplayAdmin(ref redBriefing);
                     DisplayMission(ref redBriefing);
                     DisplaySituation(ref redBriefing);
                     DisplayEnemyForces(ref redBriefing);
                     break;
-                case "Indfor":
+                case Sides.IND:
                     DisplayAdmin(ref indBriefing);
                     DisplayMission(ref indBriefing);
                     DisplaySituation(ref indBriefing);
                     DisplayEnemyForces(ref indBriefing);
                     break;
-                case "Civ":
+                case Sides.CIV:
                     DisplayAdmin(ref civBriefing);
                     DisplayMission(ref civBriefing);
                     DisplaySituation(ref civBriefing);
@@ -289,11 +241,10 @@ namespace Nihon_Mission_Maker
                     break;
             }
 
-            //reset savable change made to its state before switching the text in the text boxes
-            saveableChangeMade = previousChangeMade;
-
-            //change color of save button back to normal if it was falsely changed
-            if (saveableChangeMade == false)
+            //return saveableChangeMade to its former state
+            //Ensure save button is colored correctly
+            saveableChangeMade = storeChage;
+            if (!storeChage)
             {
                 briefingSaveButton.Background = normalColor;
             }
@@ -343,7 +294,6 @@ namespace Nihon_Mission_Maker
             ElementChanged();
         }
 
-
         /// <summary>
         /// Call whenever a briefing element is changed. Changes Save button to Red
         /// </summary>
@@ -356,6 +306,107 @@ namespace Nihon_Mission_Maker
 
                 //change the color of the element to show it can be saved
                 briefingSaveButton.Background = enabledColor;
+            }
+        }
+
+        /// <summary>
+        /// Detects when the user exits the administrationTextBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void administrationTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            switch (side)
+            {
+                //make changes to string for selected factions briefing
+                case Sides.BLUF:
+                    ChangeAdmin(ref bluBriefing);
+                    break;
+                case Sides.OPF:
+                    ChangeAdmin(ref redBriefing);
+                    break;
+                case Sides.IND:
+                    ChangeAdmin(ref indBriefing);
+                    break;
+                case Sides.CIV:
+                    ChangeAdmin(ref civBriefing);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Detects when the user exits the missioinTextBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void missionTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            switch (side)
+            {
+                //make changes to string for selected factions briefing
+                case Sides.BLUF:
+                    ChangeMission(ref bluBriefing);
+                    break;
+                case Sides.OPF:
+                    ChangeMission(ref redBriefing);
+                    break;
+                case Sides.IND:
+                    ChangeMission(ref indBriefing);
+                    break;
+                case Sides.CIV:
+                    ChangeMission(ref civBriefing);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Detects when the user exits the situationTextBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void situationTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            switch (side)
+            {
+                //make changes to string for selected factions briefing
+                case Sides.BLUF:
+                    ChangeSituation(ref bluBriefing);
+                    break;
+                case Sides.OPF:
+                    ChangeSituation(ref redBriefing);
+                    break;
+                case Sides.IND:
+                    ChangeSituation(ref indBriefing);
+                    break;
+                case Sides.CIV:
+                    ChangeSituation(ref civBriefing);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Detects when the user exits the enemyForcesTextBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void enemyForcesTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            switch (side)
+            {
+                //make changes to string for selected factions briefing
+                case Sides.BLUF:
+                    ChangeEnemyForces(ref bluBriefing);
+                    break;
+                case Sides.OPF:
+                    ChangeEnemyForces(ref redBriefing);
+                    break;
+                case Sides.IND:
+                    ChangeEnemyForces(ref indBriefing);
+                    break;
+                case Sides.CIV:
+                    ChangeEnemyForces(ref civBriefing);
+                    break;
             }
         }
 
@@ -405,7 +456,7 @@ namespace Nihon_Mission_Maker
             var situation = Regex.Matches(briefing, situationRegexExpression, RegexOptions.Singleline);
 
             //write last match to GUI
-            foreach(Match situationMatch in situation)
+            foreach (Match situationMatch in situation)
             {
                 situationTextBox.Text = situationMatch.ToString();
             }
@@ -426,8 +477,68 @@ namespace Nihon_Mission_Maker
                 enemyForcesTextBox.Text = enemyForcesMatch.ToString();
             }
         }
+
         #endregion
 
 
+        /// <summary>
+        /// The selected side of the briefing page
+        /// </summary>
+        public Sides side
+        {
+            get
+            {
+                //get selection of the side selection combo box
+                ComboBoxItem selection = (ComboBoxItem)(SideSelectionBox.SelectedValue);
+                string selectionString;
+
+                try
+                {
+                    //convert selection to string
+                    selectionString = (string)selection.Content;
+                }
+                catch
+                {
+                     return Sides.EMPTY;
+                }
+
+                switch (selectionString)
+                {
+                    //make changes to string for selected factions briefing and overwrite faction briefing file with content of string
+                    case "Blufor":
+                        return Sides.BLUF;
+                    case "Opfor":
+                        return Sides.OPF;
+                    case "Indfor":
+                        return Sides.IND;
+                    case "Civ":
+                        return Sides.CIV;
+                    default:
+                        return Sides.EMPTY;
+                }
+            }
+            set
+            {
+                //Sets the side selection combo box to the passed side
+                switch (value)
+                {
+                    case Sides.BLUF:
+                        SideSelectionBox.SelectedItem = briefSideBlue;
+                        break;
+                    case Sides.IND:
+                        SideSelectionBox.SelectedItem = briefSideInd;
+                        break;
+                    case Sides.OPF:
+                        SideSelectionBox.SelectedItem = briefSideRed;
+                        break;
+                    case Sides.CIV:
+                        SideSelectionBox.SelectedItem = briefSideCiv;
+                        break;
+                    default:
+                        SideSelectionBox.SelectedIndex = -1;
+                        break;
+                }
+            }
+        }
     }
 }
