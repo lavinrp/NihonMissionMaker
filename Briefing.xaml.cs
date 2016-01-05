@@ -163,13 +163,24 @@ namespace Nihon_Mission_Maker
         #region change text fields
 
         /// <summary>
+        /// Converts text formatted for display in NMM to text formatted for display in arma
+        /// </summary>
+        /// <param name="rawText">Text formatted to display in NMM</param>
+        /// <returns>Text formated to display in arma briefings</returns>
+        private string PrepTextForArma(string rawText)
+        {
+            return rawText.Replace(Environment.NewLine, "<br/>");
+        }
+
+        /// <summary>
         /// replace whats in the administration section of the briefing with whats in the administration text box
         /// </summary>
         /// <param name="briefing"></param>
         private void ChangeAdmin(ref string briefing)
         {
             Regex adminRegex = new Regex(administrationRegexExpression, RegexOptions.Singleline);
-            briefing = adminRegex.Replace(briefing, administrationTextBox.Text);
+            string formatedText = PrepTextForArma(administrationTextBox.Text);
+            briefing = adminRegex.Replace(briefing, formatedText);
         }
 
         /// <summary>
@@ -179,7 +190,8 @@ namespace Nihon_Mission_Maker
         private void ChangeMission(ref string briefing)
         {
             Regex missionRegex = new Regex(missionRegexExpression, RegexOptions.Singleline);
-            briefing = missionRegex.Replace(briefing, missionTextBox.Text);
+            string formatedText = PrepTextForArma(missionTextBox.Text);
+            briefing = missionRegex.Replace(briefing, formatedText);
         }
 
         /// <summary>
@@ -189,7 +201,8 @@ namespace Nihon_Mission_Maker
         private void ChangeSituation(ref string briefing)
         {
             Regex situationRegex = new Regex(situationRegexExpression, RegexOptions.Singleline);
-            briefing = situationRegex.Replace(briefing, situationTextBox.Text);
+            string formatedText = PrepTextForArma(situationTextBox.Text);
+            briefing = situationRegex.Replace(briefing, formatedText);
         }
 
         /// <summary>
@@ -199,7 +212,8 @@ namespace Nihon_Mission_Maker
         private void ChangeEnemyForces(ref string briefing)
         {
             Regex enemyForcesRegex = new Regex(enemyForcesRegexExpression, RegexOptions.Singleline);
-            briefing = enemyForcesRegex.Replace(briefing, enemyForcesTextBox.Text);
+            string formatedText = PrepTextForArma(enemyForcesTextBox.Text);
+            briefing = enemyForcesRegex.Replace(briefing, formatedText);
         }
 
         /// <summary>
@@ -413,6 +427,16 @@ namespace Nihon_Mission_Maker
         #endregion
 
         #region display text fields
+        
+        /// <summary>
+        /// Preform all operations necessary to convert from arma formating of briefing to NMM formating of briefing.
+        /// </summary>
+        /// <param name="rawString">Raw string imported from briefing sqf file. formatted to be displayed in ArmA</param>
+        /// <returns>String with correct formating to display in briefing sections of NMM.</returns>
+        private string PrepStringForDisplay(ref string rawString)
+        {
+            return rawString.Replace("<br/>", Environment.NewLine);
+        }
 
         /// <summary>
         /// fills the administration box with the administration information from the given factions briefing
@@ -426,7 +450,8 @@ namespace Nihon_Mission_Maker
             //write last match to GUI
             foreach (Match adminMatch in admin)
             {
-                administrationTextBox.Text = adminMatch.ToString();
+                string rawString = adminMatch.ToString();
+                administrationTextBox.Text = PrepStringForDisplay(ref rawString);
             }
         }
 
@@ -442,7 +467,8 @@ namespace Nihon_Mission_Maker
             //write last match to GUI
             foreach (Match missionMatch in mission)
             {
-                missionTextBox.Text = missionMatch.ToString();
+                string rawString = missionMatch.ToString();
+                missionTextBox.Text = PrepStringForDisplay(ref rawString);
             }
         }
 
@@ -458,7 +484,8 @@ namespace Nihon_Mission_Maker
             //write last match to GUI
             foreach (Match situationMatch in situation)
             {
-                situationTextBox.Text = situationMatch.ToString();
+                string rawString = situationMatch.ToString();
+                situationTextBox.Text = PrepStringForDisplay(ref rawString);
             }
         }
 
@@ -474,7 +501,8 @@ namespace Nihon_Mission_Maker
             //write last match to GUI
             foreach (Match enemyForcesMatch in enemyForces)
             {
-                enemyForcesTextBox.Text = enemyForcesMatch.ToString();
+                string rawString = enemyForcesMatch.ToString();
+                enemyForcesTextBox.Text = PrepStringForDisplay(ref rawString);
             }
         }
 
