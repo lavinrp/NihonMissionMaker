@@ -1,6 +1,4 @@
-﻿Helvantis	anim_helvantis_v2
-Altis	Altis
-Stratis	Stratis
+
 Virtual Reality	VR
 Utes	utes
 Razoreniya	razoreniya
@@ -25,6 +23,11 @@ Shapur	Shapur_BAF
 MBG Vietnam	MBG_nam
 Bovington 5m cell	bovington
 Celle 2	mbg_celle2
-Island Panthera v3.1	Panthera3
+Stratis	Stratis
+Helvantis	anim_helvantis_v2
 Kunduz, Afghanistan	Kunduz
+Altis	Altis
+Isla Duala v3.35	IslaDuala3
+Island Panthera v3.36	Panthera3
 F.S.F Al Rayak	pja310
+Vt5, Suomi Finland - v0.2	vt5
