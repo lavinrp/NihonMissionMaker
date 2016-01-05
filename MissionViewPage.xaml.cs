@@ -33,7 +33,7 @@ namespace Nihon_Mission_Maker
         //regex for finding elements in description.ext
         string authorNameRegexExpression = "(?<=author = \")(.*?)(?=\";(\\r\\n|\\n)loadScreen)";
         string missionNameRegexExpression = "(?<=onLoadName = \")(.*?)(?=\";)";
-        string missionTypeRegexExpression = "(?<=gameType = )(.*?)(?=;)";//TDM for tvt and Coop for COOP
+        string missionTypeRegexExpression = "(?<=gameType = )(.*?)(?=;)";//TDM for tvt, Coop for COOP, and DM for death match
 
         //string for holding the contents of description.ext
         private string descriptionExtTxt;
@@ -293,6 +293,10 @@ namespace Nihon_Mission_Maker
             {
                 missionTypeReplacement = "Coop";
             }
+            else if (missionTypeSelector.SelectedItem.Equals(missionTypeDM))
+            {
+                missionTypeReplacement = "DM";
+            }
 
             Regex missionTypeReplaceRegex = new Regex(missionTypeRegexExpression);
             descriptionExtTxt = missionTypeReplaceRegex.Replace(descriptionExtTxt, missionTypeReplacement);
@@ -463,6 +467,10 @@ namespace Nihon_Mission_Maker
                 if (missionTypeMatch.ToString() == "Coop")
                 {
                     missionTypeSelector.SelectedItem = missionTypeCOOP;
+                }
+                else if (missionTypeMatch.ToString() == "DM")
+                {
+                    missionTypeSelector.SelectedItem = missionTypeDM;
                 }
                 else
                 {

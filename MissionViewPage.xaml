@@ -51,6 +51,9 @@
                     <ComboBoxItem x:Name="missionTypeTVT" FontSize="20">
                         TVT
                     </ComboBoxItem>
+                    <ComboBoxItem x:Name="missionTypeDM" FontSize="20">
+                        Death Match
+                    </ComboBoxItem>
                 </ComboBox>
             </Grid>
             <!--Author Name box-->
