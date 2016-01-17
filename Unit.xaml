@@ -35,9 +35,11 @@
     </UserControl.Resources>
     
     <Grid>
-        <Expander Header="{Binding ElementName=unitDisplayNameTextBox, Path=Text}" Foreground="White" IsExpanded="False">
+        <Expander Header="{Binding ElementName=unitDisplayNameTextBox, Path=Text}" Foreground="White" IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -60,22 +62,36 @@
                     </TextBox>
                 </Grid>
                 
-                <!--Unit Variable Name-->
+                <!--Unit Position Abbreviation-->
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource UnitElementLabel}">
-                        Unit Variable Name
+                        Unit Position Abbreviation
                     </TextBlock>
-                    <TextBox Grid.Row="1" x:Name="unitVariableNameTextBox" Style="{StaticResource UnitElementText}">
-                        Example_variable_Name
+                    <TextBox Grid.Row="1" x:Name="unitPositionAbbreviation" Style="{StaticResource UnitElementText}">
+                        Ex
+                    </TextBox>
+                </Grid>
+
+                <!--Faction Prefix-->
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource UnitElementLabel}">
+                        Faction Prefix
+                    </TextBlock>
+                    <TextBox Grid.Row="1" x:Name="factionPrefixTextBox" Style="{StaticResource UnitElementText}">
+                        ExamplePrefix
                     </TextBox>
                 </Grid>
                 
                 <!--vehicle Name-->
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
@@ -90,7 +106,7 @@
                 </Grid>
                 
                 <!--rank-->
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
@@ -112,7 +128,7 @@
                 </Grid>
                 
                 <!--Side-->
-                <Grid Grid.Row="4">
+                <Grid Grid.Row="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
@@ -137,7 +153,7 @@
                 </Grid>
                 
                 <!--Position-->
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="7">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
@@ -181,7 +197,7 @@
                 </Grid>
                 
                 <!--Marker-->
-                <Grid Grid.Row="6">
+                <Grid Grid.Row="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>

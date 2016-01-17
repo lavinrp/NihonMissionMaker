@@ -46,7 +46,7 @@ namespace Nihon_Mission_Maker
             //TODO: create units from string here
         }
 
-        #region Importing
+        #region Importing from SQM
 
         /// <summary>
         /// returns the Sides enum value that corresponds to the side stored in the passed string
@@ -193,7 +193,6 @@ namespace Nihon_Mission_Maker
             unit.SetValue(Grid.RowProperty, gridRow);
         }
         #endregion
-
 
         #region public Member variables
         public string name;

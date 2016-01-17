@@ -77,11 +77,43 @@ namespace Nihon_Mission_Maker
         }
 
         /// <summary>
+        /// Gets the faction prefix, group name, and position abbreviation from
+        /// the full variable name of the unit.
+        /// </summary>
+        /// <param name="fullVariableName">The full variable name of the unit as it appears in the mission.sqm</param>
+        /// <returns>
+        /// Array of strings. Position 0 is the faction prefix, position 1 is the group name
+        /// and position 2 is the position abbreviation
+        /// </returns>
+        private string[] GetVariableNameComponents(string fullVariableName)
+        {
+            const int expectedVariableNameComponents = 3;
+
+            //create return array 
+            string[] components;
+            components = fullVariableName.Split('_');
+
+            //return components if the expected number is found. Return generic values otherwise.
+            if (components.Length == expectedVariableNameComponents)
+            {
+                return components;
+            }
+            else
+            {
+                MessageBox.Show("Imported unit does not follow the expected naming convention. Replacing values of "
+                    + unitDisplayNameTextBox.Text + "with defaults", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string[] genericReturn = {"examplePrefix", "ExampleGroup", "EX"};
+                return genericReturn;
+            }
+        }
+
+        /// <summary>
         /// Imports all possible unit values from the mission.sqm text
         /// </summary>
         /// <param name="unitString"></param>
         private void ImportFromSqm(ref string unitString)
         {
+            //Regex patterns
             string displayNameRegexPattern = "(?<=description=\")(.*)(?=\")";
             string sideRegexPattern = "(?<=side=\")(.*?)(?=\")";
             string vehicleNameRegexPattern = "(?<=vehicle=\")(.*?)(?=\")";
@@ -93,7 +125,6 @@ namespace Nihon_Mission_Maker
             string leaderRegexPattern = "(?<=leader=)(.*?)(?=;)";
             string positionRegexPattern = "(?<=position\\[\\]=\\{)(.*?)(?=\\})";
             
-
             //DisplayName
             unitDisplayNameTextBox.Text = ImportUnitParam(ref unitString, ref displayNameRegexPattern);
 
@@ -118,7 +149,11 @@ namespace Nihon_Mission_Maker
             skill = ImportUnitParam(ref unitString, ref skillRegexPattern);
 
             //variable name
-            unitVariableNameTextBox.Text = ImportUnitParam(ref unitString, ref variableRegexPattern);
+            completeVariableName = ImportUnitParam(ref unitString, ref variableRegexPattern);
+            string[] variableNameComponents = GetVariableNameComponents(completeVariableName);
+            factionPrefixTextBox.Text = variableNameComponents[0];
+            GroupName = variableNameComponents[1];
+            unitPositionAbbreviation.Text = variableNameComponents[2];
 
             //leader
             string leaderString = ImportUnitParam(ref unitString, ref leaderRegexPattern);
@@ -244,10 +279,42 @@ namespace Nihon_Mission_Maker
         }
         #endregion
 
-        //Member variables
+        #region Member Variables
+        //Public Member variables
         public string playability;
         public string skill;
         public string azimut;
         public bool isLeader = false;
+
+        /// <summary>
+        /// Public getter and setter for groupName.
+        /// If the setter fails to validate input an empty string is used. 
+        /// </summary>
+        public string GroupName
+        {
+            get
+            {
+                return groupName;
+            }
+            set
+            {
+                //TODO: add validation here
+                groupName = value;
+            }
+        }
+
+        //Private members 
+        /// <summary>
+        /// Combination of units prefix, group, and position abbreviation 
+        /// separated by commas.
+        /// 
+        /// This is what appears in the mission sqm under the "text"
+        /// </summary>
+        private string completeVariableName;
+        /// <summary>
+        /// Internal variable to store the name of the group that the unit belongs to.
+        /// </summary>
+        private string groupName;
+        #endregion
     }
 }
