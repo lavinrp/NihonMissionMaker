@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:Nihon_Mission_Maker"
              mc:Ignorable="d" 
              >
-            <!--d:DesignHeight="300" d:DesignWidth="150"-->
+    <!--d:DesignHeight="300" d:DesignWidth="150"-->
 
     <UserControl.Resources>
         <Style x:Key="UnitElementLabel" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="Gray"/>
             <Setter Property="FontSize" Value="9"/>
-         </Style>
+        </Style>
         <Style x:Key="UnitElementText" TargetType="TextBox">
             <Setter Property="Background" Value="LightGray"/>
             <Setter Property="Foreground" Value="Black"/>
@@ -33,9 +33,13 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
-        <Expander Header="{Binding ElementName=unitDisplayNameTextBox, Path=Text}" Foreground="White" IsExpanded="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <Expander Header="{Binding ElementName=unitDisplayNameTextBox, Path=Text}" Foreground="White" IsExpanded="False" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -61,7 +65,7 @@
                         Example Unit Name
                     </TextBox>
                 </Grid>
-                
+
                 <!--Unit Position Abbreviation-->
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -89,7 +93,7 @@
                         ExamplePrefix
                     </TextBox>
                 </Grid>
-                
+
                 <!--vehicle Name-->
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
@@ -104,7 +108,7 @@
                         Example_Vehicle_Name
                     </TextBox>
                 </Grid>
-                
+
                 <!--rank-->
                 <Grid Grid.Row="5">
                     <Grid.RowDefinitions>
@@ -124,9 +128,9 @@
                         <ComboBoxItem x:Name="rankColonel" Background="LightGray">Colonel</ComboBoxItem>
                         <!--TODO: add in Ranks-->
                     </ComboBox>
-                    
+
                 </Grid>
-                
+
                 <!--Side-->
                 <Grid Grid.Row="6">
                     <Grid.RowDefinitions>
@@ -151,7 +155,7 @@
                         </ComboBoxItem>
                     </ComboBox>
                 </Grid>
-                
+
                 <!--Position-->
                 <Grid Grid.Row="7">
                     <Grid.RowDefinitions>
@@ -193,9 +197,9 @@
                             0
                         </TextBox>
                     </Grid>
-                    
+
                 </Grid>
-                
+
                 <!--Marker-->
                 <Grid Grid.Row="8">
                     <Grid.RowDefinitions>
@@ -212,7 +216,7 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
-                         <!--Allow Marker-->
+                        <!--Allow Marker-->
                         <TextBlock Style="{StaticResource UnitElementLabel}" FontSize="10" VerticalAlignment="Center">
                             Allow <LineBreak/> Marker
                         </TextBlock>
@@ -228,7 +232,7 @@
                     </Grid>
                 </Grid>
 
-                
+
             </Grid>
         </Expander>
     </Grid>

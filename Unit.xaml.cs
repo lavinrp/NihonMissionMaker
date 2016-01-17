@@ -82,29 +82,25 @@ namespace Nihon_Mission_Maker
         /// </summary>
         /// <param name="fullVariableName">The full variable name of the unit as it appears in the mission.sqm</param>
         /// <returns>
-        /// Array of strings. Position 0 is the faction prefix, position 1 is the group name
+        /// List of strings. Position 0 is the faction prefix, position 1 is the group name
         /// and position 2 is the position abbreviation
         /// </returns>
-        private string[] GetVariableNameComponents(string fullVariableName)
+        private List<string> GetVariableNameComponents(string fullVariableName)
         {
-            const int expectedVariableNameComponents = 3;
+            const int expectedComponentCount = 3;
 
             //create return array 
-            string[] components;
-            components = fullVariableName.Split('_');
+            string[] componentsArray;
+            componentsArray = fullVariableName.Split('_');
+            List<string> components = new List<string>(componentsArray);
+            
+            //Replaces all missing components with empty strings
+            while (components.Count() < expectedComponentCount)
+            {
+                components.Add("");
+            }
 
-            //return components if the expected number is found. Return generic values otherwise.
-            if (components.Length == expectedVariableNameComponents)
-            {
-                return components;
-            }
-            else
-            {
-                MessageBox.Show("Imported unit does not follow the expected naming convention. Replacing values of "
-                    + unitDisplayNameTextBox.Text + "with defaults", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                string[] genericReturn = {"examplePrefix", "ExampleGroup", "EX"};
-                return genericReturn;
-            }
+            return components;
         }
 
         /// <summary>
@@ -150,7 +146,7 @@ namespace Nihon_Mission_Maker
 
             //variable name
             completeVariableName = ImportUnitParam(ref unitString, ref variableRegexPattern);
-            string[] variableNameComponents = GetVariableNameComponents(completeVariableName);
+            List<string> variableNameComponents = GetVariableNameComponents(completeVariableName);
             factionPrefixTextBox.Text = variableNameComponents[0];
             GroupName = variableNameComponents[1];
             unitPositionAbbreviation.Text = variableNameComponents[2];

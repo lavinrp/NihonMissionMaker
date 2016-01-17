@@ -43,7 +43,12 @@ namespace Nihon_Mission_Maker
                 units.Add(newUnit);
                 DisplayUnit(newUnit);
             }
-            //TODO: create units from string here
+
+            //Display group name of first group
+            if (units.Count() > 0)
+            {
+                groupNameTextBox.Text = units[0].GroupName;
+            }
         }
 
         #region Importing from SQM
@@ -195,7 +200,6 @@ namespace Nihon_Mission_Maker
         #endregion
 
         #region public Member variables
-        public string name;
         public Sides side;
         public List<Unit> units;
         #endregion
