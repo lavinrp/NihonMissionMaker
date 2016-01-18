@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 
+//TODO: Validate all inputs
 namespace Nihon_Mission_Maker
 {
     /// <summary>

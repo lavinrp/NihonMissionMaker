@@ -126,7 +126,6 @@
                         <ComboBoxItem x:Name="rankCaptain" Background="LightGray">Captain</ComboBoxItem>
                         <ComboBoxItem x:Name="rankMajor" Background="LightGray">Major</ComboBoxItem>
                         <ComboBoxItem x:Name="rankColonel" Background="LightGray">Colonel</ComboBoxItem>
-                        <!--TODO: add in Ranks-->
                     </ComboBox>
 
                 </Grid>
