@@ -58,7 +58,6 @@ namespace Nihon_Mission_Maker
             positionYTextBox.Text = "0";
             positionZTextBox.Text = "0";
         }
-
         #endregion
 
         #region import

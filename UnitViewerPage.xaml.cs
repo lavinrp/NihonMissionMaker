@@ -25,7 +25,7 @@ namespace Nihon_Mission_Maker
         /// <summary>
         /// Regular expression for finding the contents of the Groups class within the mission.sqm
         /// </summary>
-        private const string GroupsRegexExpression = @"(?<=class Groups\n\t\{)(.*?)(=?\n\t\};)";
+        private const string GroupsRegexPattern = @"(?<=class Groups\n\t\{)(.*?)(=?\n\t\};)";
 
         /// <summary>
         /// Constructor for UnitViewerPage
@@ -38,6 +38,8 @@ namespace Nihon_Mission_Maker
 
             //File Path
             missionFilePath = bwmfFilePath + "\\mission.sqm";
+            defineGroupsFilePath = bwmfFilePath + "\\f\\pabstMarkers\\defines_unitsAndGroups.sqf";
+            groupStyleFilePath = bwmfFilePath + "\\f\\pabstMarkers\\fn_getGroupMarkerStyle.sqf";
 
             //Initialize lists to store GroupGUIs 
             activeGuiGroupList = new List<GroupGUI>();
@@ -50,6 +52,9 @@ namespace Nihon_Mission_Maker
             //store mission.sqf
             ReadMissionFile();
             ImportGroupsFromMission();
+
+            //Store Marker text
+            ReadMarkers();
 
         }
 
@@ -152,8 +157,8 @@ namespace Nihon_Mission_Maker
             DisplayGuiGroup(newGroup);
         }
         #endregion
-
-        #region Importing
+        
+        #region Importing From SQM
 
         /// <summary>
         /// Read in the mission file and save it as a string
@@ -266,7 +271,7 @@ namespace Nihon_Mission_Maker
             {
                 //find and return the first match to the GroupsRegexExpression.
                 //If more than one match is found only the first is valid
-                var groupTxtMatches = Regex.Matches(missionTxt, GroupsRegexExpression, RegexOptions.Singleline);
+                var groupTxtMatches = Regex.Matches(missionTxt, GroupsRegexPattern, RegexOptions.Singleline);
                 string groupTxt = groupTxtMatches[0].ToString();
 
                 return groupTxt;
@@ -280,6 +285,74 @@ namespace Nihon_Mission_Maker
 
         #endregion
 
+        //TODO: move everything in this region to a Marker Reader Class
+        #region Importing Marker
+        public void ReadMarkers()
+        {
+            //Read define groups markers
+            try
+            {
+                if (File.Exists(defineGroupsFilePath))
+                {
+                    using (StreamReader sr = new StreamReader(defineGroupsFilePath))
+                    {
+                        defineGroupsTxt = sr.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    throw new System.IO.IOException("defines_unitsAndGroups.sqf not found.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error reading mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+            }
+
+            //Read group style
+            try
+            {
+                if (File.Exists(groupStyleFilePath))
+                {
+                    using (StreamReader sr = new StreamReader(groupStyleFilePath))
+                    {
+                        groupStyleTxt = sr.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    throw new System.IO.IOException("fn_getGroupMarkerStyle.sqf not found.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error reading mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+        public Dictionary<string, string> ExtractGroupMarkerPairs()
+        {
+            //TODO: fill stub
+            throw new NotImplementedException();
+        }
+        public Dictionary<string, string> ExtractUnitMarkerPairs()
+        {
+            //TODO: fill stub
+            throw new NotImplementedException();
+        }
+        public void AssocieateNmmGroiupsWithMarkers()
+        {
+            //TODO Fill Stub
+            throw new NotImplementedException();
+        }
+        public void AssocieateNmmUnitsWithMarkers()
+        {
+            //TODO: fill Stub
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
         //Lists of GuiGroups
         private List<GroupGUI> activeGuiGroupList;
         private List<GroupGUI> blueGuiGroupList;
@@ -289,7 +362,11 @@ namespace Nihon_Mission_Maker
         private List<GroupGUI> logicGuiGroupList;
 
         private string missionTxt;
-
         private string missionFilePath;
+
+        private string defineGroupsTxt;
+        private string defineGroupsFilePath;
+        private string groupStyleTxt;
+        private string groupStyleFilePath;
     }
 }
