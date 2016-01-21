@@ -80,6 +80,8 @@
     <Compile Include="LoadoutEditor.xaml.cs">
       <DependentUpon>LoadoutEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Marker.cs" />
+    <Compile Include="MarkerReader.cs" />
     <Compile Include="Sides.CS" />
     <Compile Include="Unit.xaml.cs">
       <DependentUpon>Unit.xaml</DependentUpon>

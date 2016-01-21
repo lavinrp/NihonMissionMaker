@@ -290,45 +290,10 @@ namespace Nihon_Mission_Maker
         public void ReadMarkers()
         {
             //Read define groups markers
-            try
-            {
-                if (File.Exists(defineGroupsFilePath))
-                {
-                    using (StreamReader sr = new StreamReader(defineGroupsFilePath))
-                    {
-                        defineGroupsTxt = sr.ReadToEnd();
-                    }
-                }
-                else
-                {
-                    throw new System.IO.IOException("defines_unitsAndGroups.sqf not found.");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error reading mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-
-            }
+            
 
             //Read group style
-            try
-            {
-                if (File.Exists(groupStyleFilePath))
-                {
-                    using (StreamReader sr = new StreamReader(groupStyleFilePath))
-                    {
-                        groupStyleTxt = sr.ReadToEnd();
-                    }
-                }
-                else
-                {
-                    throw new System.IO.IOException("fn_getGroupMarkerStyle.sqf not found.");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error reading mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
+            
         }
         public Dictionary<string, string> ExtractGroupMarkerPairs()
         {
