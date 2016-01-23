@@ -65,6 +65,48 @@ namespace Nihon_Mission_Maker
             }
         }
 
+        /// <summary>
+        /// Populates the values of this instance of MarkerReader with values found in 
+        /// the unitsAndGroupsFullText and  markerStyleFullText variables.
+        /// </summary>
+        public void FillValuesFromText()
+        {
+            //TODO: fill stub
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Populates the values of this instance of MarkerReader with values from the 
+        /// passed UnitsAndGroupsText and markerStyleText strings.
+        /// </summary>
+        /// <param name="UnitsAndGroupsText">Text from a defines_unitsAndGroups.sqf file. </param>
+        /// <param name="markerStyleText">Text from a fn_getGroupMarkerStyle.sqf file.</param>
+        public void FillValuesFromText(ref string UnitsAndGroupsText, ref string markerStyleText)
+        {
+            unitsAndGroupsFullText = UnitsAndGroupsText;
+            markerStyleFullText = markerStyleText;
+            FillValuesFromText();
+        }
+
+        private void GetGroupsWithMarkers()
+        {
+            //TODO: fill stub
+            throw new NotImplementedException();
+        }
+        private void GetUnitsWithMarkers()
+        {
+            //TODO: fill stub
+            throw new NotImplementedException();
+        }
+
+        private void GetMarkerStyles()
+        {
+            //TODO: fill stub
+            throw new NotImplementedException();
+        }
+
+
+
         public Dictionary<string, Marker> GroupMarkerPairs;
         public Dictionary<string, Marker> UnitMarkerPairs;
 

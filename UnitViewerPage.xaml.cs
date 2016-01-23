@@ -52,10 +52,6 @@ namespace Nihon_Mission_Maker
             //store mission.sqf
             ReadMissionFile();
             ImportGroupsFromMission();
-
-            //Store Marker text
-            ReadMarkers();
-
         }
 
         #region Change displayed groups
@@ -281,39 +277,6 @@ namespace Nihon_Mission_Maker
                 MessageBox.Show("Error finding groups in mission.sqm", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return "";
             }
-        }
-
-        #endregion
-
-        //TODO: move everything in this region to a Marker Reader Class
-        #region Importing Marker
-        public void ReadMarkers()
-        {
-            //Read define groups markers
-            
-
-            //Read group style
-            
-        }
-        public Dictionary<string, string> ExtractGroupMarkerPairs()
-        {
-            //TODO: fill stub
-            throw new NotImplementedException();
-        }
-        public Dictionary<string, string> ExtractUnitMarkerPairs()
-        {
-            //TODO: fill stub
-            throw new NotImplementedException();
-        }
-        public void AssocieateNmmGroiupsWithMarkers()
-        {
-            //TODO Fill Stub
-            throw new NotImplementedException();
-        }
-        public void AssocieateNmmUnitsWithMarkers()
-        {
-            //TODO: fill Stub
-            throw new NotImplementedException();
         }
 
         #endregion
